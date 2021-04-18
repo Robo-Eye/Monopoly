@@ -12,12 +12,12 @@ public class Main {
 			String line = f.nextLine();
 			Scanner sc = new Scanner(line);
 			while(sc.hasNext()) {
-				sc.
+				
 			}
 			
 			
-			RealProperty p = new RealProperty(name,cost,morg);
-			b.propList.add(p);
+//			RealProperty p = new RealProperty(name,cost,morg);
+//			b.propList.add(p);
 		}
 		System.out.println(b.propList);
 	}
