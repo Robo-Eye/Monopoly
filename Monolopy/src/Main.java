@@ -15,7 +15,7 @@ public class Main {
 				
 			}
 			
-			
+			//Test change that should work 
 //			RealProperty p = new RealProperty(name,cost,morg);
 //			b.propList.add(p);
 		}
