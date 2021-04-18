@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
-
+//Board Test Comment
 public class Board {
 	public int numPlayers;
 	ArrayList<Property> propList = new ArrayList<Property>();
