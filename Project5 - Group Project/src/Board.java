@@ -6,9 +6,14 @@ public class Board {
 	ArrayList<Property> propList = new ArrayList<Property>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
 
-	public final int NUM_SPACES = 4;
-	int playerTurn = 0;
+	public final int NUM_SPACES;
+	int playerTurn;
 
+	
+	public Board() {
+		NUM_SPACES = 4;
+		playerTurn = 0;
+	}
 	/**
 	 * Moves player using result on rollDice
 	 */
@@ -16,14 +21,15 @@ public class Board {
 	public void move(Player p) {
 		int movement = rollDice();
 		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + movement);
-		int nextLocation = (p.getCurrentSpace() + movement) % NUM_SPACES;
-System.out.println(p.getPlayerName()+" is currently on"+propList.get(p.getCurrentSpace()).getName());
+		//int nextLocation = (p.getCurrentSpace() + movement) % NUM_SPACES;
+		p.changeCurrentSpace((p.getCurrentSpace()+movement)%NUM_SPACES);
+		System.out.println(p.getPlayerName()+" is currently on"+ propList.get(p.getCurrentSpace()).getName());
 //	
-//	p.changeCurrentSpace(movement);
+//	p.change CurrentSpace(movement);
 //	if(p.getCurrentSpace()>1) {
 //		p.changeCurrentSpace(movement % 2);
 //	}
-		p.changeCurrentSpace(nextLocation);
+		
 
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;

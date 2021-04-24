@@ -33,16 +33,18 @@ public class Main {
 		b.playerList.add(steve);
 		b.playerList.add(fred);
 		b.playerList.add(joe);
+		b.propList.add(boardwalk);
+		b.propList.add(parkplace);
+		b.propList.add(stJames);
+		b.propList.add(RRailroad);
+		int x = 0;
+		while(x < 4) {
 		b.move(jeff);
-		System.out.println(jeff.getCurrentSpace());
 		b.move(steve);
-		System.out.println(steve.getCurrentSpace());
 		b.move(fred);
-		System.out.println(fred.getCurrentSpace());
 		b.move(joe);
-		System.out.println(joe.getCurrentSpace());
-		
-	
+		x++;
+		}
 
 //Testing move function
 
