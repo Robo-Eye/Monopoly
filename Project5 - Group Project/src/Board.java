@@ -26,7 +26,7 @@ public class Board {
 		// int nextLocation = (p.getCurrentSpace() + movement) % NUM_SPACES;
 		// System.out.println((p.getCurrentSpace()+movement)%NUM_SPACES);
 		if (movement > NUM_SPACES) {
-			movement = movement - NUM_SPACES;
+			movement =- NUM_SPACES;
 		}
 		p.changeCurrentSpace(((p.getCurrentSpace() + movement) % NUM_SPACES));
 		// p.changeCurrentSpace(movement);
@@ -44,7 +44,7 @@ public class Board {
 			System.out.println(
 					"Do you want to buy this property for $" + propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
 		} else {
-			System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner() + " rent is "
+			System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName() + " rent is "
 					+ propList.get(p.getCurrentSpace()).getRent());
 			p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
 		}
@@ -75,8 +75,6 @@ public class Board {
 		int randomNum = randy.nextInt((6 - 1) + 1) + 1;
 		int randomNum2 = randy.nextInt((6 - 1) + 1) + 1;
 		return randomNum + randomNum2;
-
-		//todo
 
 	}
 
