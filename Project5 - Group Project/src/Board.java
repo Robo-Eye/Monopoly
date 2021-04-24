@@ -41,20 +41,28 @@ public class Board {
 		Scanner scn = new Scanner(System.in);
 
 		if (propList.get(p.getCurrentSpace()).getOwner() == null) {
-			System.out.println(
-					"Do you want to buy this property for $" + propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
+			System.out.println("Do you want to buy this property for $" 
+								+ propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
+			
 		} else {
-			System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName() + " rent is "
-					+ propList.get(p.getCurrentSpace()).getRent());
+			System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName() + 
+							   " rent is " + propList.get(p.getCurrentSpace()).getRent());
+			
 			p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
+			
 		}
-		if (scn.next().equalsIgnoreCase("Y") || scn.next().equalsIgnoreCase("y")) {
-			p.deductMoney(propList.get(p.getCurrentSpace()).getCost());
-			propList.get(p.getCurrentSpace()).changeOwner(p);
-			System.out.println("Sale successfull");
-		} else {
-			System.out.println("Sale unsucessful");
+		
+		if(p.getMoney() >= propList.get(p.getCurrentSpace()).cost ) {
+			if (scn.next().equalsIgnoreCase("Y")) {
+				p.deductMoney(propList.get(p.getCurrentSpace()).getCost());
+				propList.get(p.getCurrentSpace()).changeOwner(p);
+				System.out.println("Sale successfull");
+				System.out.println("Balance of " + p.getPlayerName() + " is $" + p.getMoney());
+			} else if (scn.next().equalsIgnoreCase("N")) {
+				System.out.println("No sale");
+			}
 		}
+		
 
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;
