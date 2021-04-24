@@ -1,7 +1,8 @@
 public class RealProperty extends Property {
-	
+	public int rent;
 	public RealProperty(String name, int cost, int morgage) {
 		super(name, cost, morgage);
+		this.rent=0;
 	}
 
 	/*
@@ -10,6 +11,10 @@ public class RealProperty extends Property {
 	the property
 	card says*/
 
+	
+//	public int getRent() {
+//		return this.rent;
+//	}
   public void rent() {
     // TODO Auto-generated method stub
     

@@ -9,7 +9,7 @@ public class Player {
 		currBal = 1500;
 		currSpace = 0;
 	}
-	
+
 	public String getPlayerName() {
 		return playerName;
 	}
@@ -26,7 +26,7 @@ public class Player {
 	}
 	
 	public void changeCurrentSpace(int move) {
-		currSpace += move;
+		currSpace = move;
 	}
 	
 	public int getCurrentSpace() {

@@ -18,10 +18,10 @@ public class Main {
 		Board b = new Board();
 		b.numPlayers = 4;
 		
-		Property boardwalk = new Property("Boardwalk", 400, 200);
-		Property parkplace = new Property("Boardwalk", 360, 180);
-		Property stJames = new Property("St James Place", 200, 100);
-		Property RRailroad = new Property("Reading Railroad", 400, 200);
+		Property boardwalk = new Property("Boardwalk", 400, 200, 100);
+		Property parkplace = new Property("Boardwalk", 360, 180, 100);
+		Property stJames = new Property("St James Place", 200, 100, 100);
+		Property RRailroad = new Property("Reading Railroad", 400, 200, 100);
 		// for (int i = 0; i < 10; i++) {
 		// System.out.println(b.rollDice());
 		// }
@@ -38,7 +38,7 @@ public class Main {
 		b.propList.add(stJames);
 		b.propList.add(RRailroad);
 		int x = 0;
-		while(x < 4) {
+		while(x < 	100) {
 		b.move(jeff);
 		b.move(steve);
 		b.move(fred);
