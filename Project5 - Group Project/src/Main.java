@@ -10,12 +10,18 @@
 import java.util.*;
 import java.io.*;
 public class Main {
+
+	
+	
 	public static void main(String[] args) throws IOException{
 		//Test Change 1:48 4/24/21
 		Board b = new Board();
 		b.numPlayers = 4;
 		
-
+		Property boardwalk = new Property("Boardwalk", 400, 200);
+		Property parkplace = new Property("Boardwalk", 360, 180);
+		Property stJames = new Property("St James Place", 200, 100);
+		Property RRailroad = new Property("Reading Railroad", 400, 200);
 		// for (int i = 0; i < 10; i++) {
 		// System.out.println(b.rollDice());
 		// }
@@ -28,13 +34,15 @@ public class Main {
 		b.playerList.add(fred);
 		b.playerList.add(joe);
 		b.move(jeff);
-		b.move(steve);
-		b.move(fred);
-		b.move(joe);
 		System.out.println(jeff.getCurrentSpace());
+		b.move(steve);
 		System.out.println(steve.getCurrentSpace());
+		b.move(fred);
 		System.out.println(fred.getCurrentSpace());
+		b.move(joe);
 		System.out.println(joe.getCurrentSpace());
+		
+	
 
 //Testing move function
 
@@ -57,25 +65,25 @@ public class Main {
 		
 		// Testing File Read
 		
-		File prop = new File("properties.txt");
-		Scanner f = new Scanner(prop);
-		
-		while(f.hasNext()) {
-			String line = f.nextLine();
-			Scanner sc = new Scanner(line);
-			String name = "";
-			int cost = 0;
-			int morg = 0;
-			
-			while(sc.hasNext()) {
-				name = sc.next();
-				cost = Integer.parseInt(sc.next());
-				morg = Integer.parseInt(sc.next());
-			}
-			RealProperty p = new RealProperty(name,cost,morg);
-			b.propList.add(p);
-		}
-		System.out.println(b.propList); //Loop needs fixed as it prints out locations and not actual data
+//		File prop = new File("properties.txt");
+//		Scanner f = new Scanner(prop);
+//		
+//		while(f.hasNext()) {
+//			String line = f.nextLine();
+//			Scanner sc = new Scanner(line);
+//			String name = "";
+//			int cost = 0;
+//			int morg = 0;
+//			
+//			while(sc.hasNext()) {
+//				name = sc.next();
+//				cost = Integer.parseInt(sc.next());
+//				morg = Integer.parseInt(sc.next());
+//			}
+//			RealProperty p = new RealProperty(name,cost,morg);
+//			b.propList.add(p);
+//		}
+//		System.out.println(b.propList); //Loop needs fixed as it prints out locations and not actual data
 	}
 
 }

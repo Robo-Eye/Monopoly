@@ -6,7 +6,7 @@ public class Board {
 	ArrayList<Property> propList = new ArrayList<Property>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
 
-	public final int NUM_SPACES = 2;
+	public final int NUM_SPACES = 4;
 	int playerTurn = 0;
 
 	/**
@@ -46,6 +46,14 @@ public class Board {
 		return randomNum + randomNum2;
 
 //todo
+		
+	
+	}
+	public void gameLoop(int numPlayers) {
+		boolean w = false; 
+		while(!w) {
+			
+		}
 	}
 
 }
