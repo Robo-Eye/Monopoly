@@ -17,7 +17,7 @@ public class Board {
 		int movement = rollDice();
 		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + movement);
 		int nextLocation = (p.getCurrentSpace() + movement) % NUM_SPACES;
-
+System.out.println(p.getPlayerName()+" is currently on"+propList.get(p.getCurrentSpace()).getName());
 //	
 //	p.changeCurrentSpace(movement);
 //	if(p.getCurrentSpace()>1) {
