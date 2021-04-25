@@ -25,12 +25,14 @@ public class Board {
 		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + movement);
 		// int nextLocation = (p.getCurrentSpace() + movement) % NUM_SPACES;
 		// System.out.println((p.getCurrentSpace()+movement)%NUM_SPACES);
-		if (movement > NUM_SPACES) {
-			movement =- NUM_SPACES;
-		}
-		p.changeCurrentSpace(((p.getCurrentSpace() + movement) % NUM_SPACES));
+//		if (movement > NUM_SPACES) {
+//			movement =- NUM_SPACES;
+//		}
+		p.changeCurrentSpace((movement));
 		// p.changeCurrentSpace(movement);
 		System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
+		
+		
 		// System.out.println(p.getPlayerName()+" is currently on"+
 		// propList.get(p.getCurrentSpace()).getName());
 		//	

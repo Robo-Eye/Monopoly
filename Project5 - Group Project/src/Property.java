@@ -38,7 +38,7 @@ public class Property {
 		return morgage;
 	}
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public int getRent() {
