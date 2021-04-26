@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 //Board Test Comment
 //Test comment to see if push is working
+//Pulls is working, is the push working?
 public class Board {
 	public int numPlayers;
 	ArrayList<Property> propList = new ArrayList<Property>();
