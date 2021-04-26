@@ -3,6 +3,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 //Board Test Comment
+//Test comment to see if push is working
 public class Board {
 	public int numPlayers;
 	ArrayList<Property> propList = new ArrayList<Property>();

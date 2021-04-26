@@ -2,7 +2,7 @@ public class RealProperty extends Property {
 	public int rent;
 
 	public RealProperty(String name, int cost, int morgage) {
-		super(name, cost, morgage);
+	//	super(name, cost, morgage);
 		this.rent = 0;
 	}
 
