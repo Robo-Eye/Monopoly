@@ -59,7 +59,13 @@ public class Board {
 			} else {
 				System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName() + 
 				" rent is " + propList.get(p.getCurrentSpace()).getRent());
-				p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
+				if(p.getMoney() < 0) {
+					//Working On This 
+			
+				}else {
+					p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
+				}
+				
 			}
 		}
 		

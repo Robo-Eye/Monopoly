@@ -6,7 +6,7 @@ public class Property {
 	public int morgage;
 	public Player owner;
 	public int rent;//CHANGE OVER TO REALPROPERTY
-
+	private boolean isMorg; 
 	/**
 	 * abstract classes for the morgage and rent of properties
 	 */
@@ -16,6 +16,7 @@ public class Property {
 		morgage = 0;
 		owner=null;
 		rent=0;
+		isMorg = false;
 	}
 	public Player getOwner() {
 		return this.owner;
@@ -44,6 +45,20 @@ public class Property {
 	public int getRent() {
 		return this.rent;
 	}
+	
+	public void setIsMorg(Property p) {
+		if(isMorg) {
+			p.isMorg = false;
+		}else {
+			p.isMorg = true;
+		}
+	}
+	
+	public boolean getIsMorg() {
+		return isMorg;
+	}
+	
+	
 	//public void setProperty(String name, int cost, int morgage) {
 	//	this.name=name;
 	//	this.cost=cost;
