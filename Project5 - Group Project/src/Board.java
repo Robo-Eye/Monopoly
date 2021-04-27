@@ -60,7 +60,8 @@ public class Board {
 				}
 			} else {
 				System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName() + 
-				" rent is " + propList.get(p.getCurrentSpace()).getRent());
+				//THIS THROWS ERRORS SINCE utility and railroads need a board, but cant call getRent in board class.
+						" rent is " + propList.get(p.getCurrentSpace()).getRent());
 				if(p.getMoney() < 0) {
 					//Working On This 
 			

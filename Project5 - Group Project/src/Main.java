@@ -56,7 +56,7 @@ public class Main {
 	}
 
 	public static  void AddProp(Board b) {
-		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2  );
+		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2);
 		Property Baltic=new RealProperty("Baltic ave", 60,30, 4 );
 		Property Oriental=new RealProperty("Oriental ave", 100,50, 6 );
 		Property Vermont= new RealProperty("Vermont ave", 100, 50, 6);
@@ -67,9 +67,9 @@ public class Main {
 		Property StJames=new RealProperty("St James Place", 180, 90, 14);
 		Property Tenessee=new RealProperty("Tenessee ave", 180, 90, 14);
 		Property NewYork=new RealProperty("New York ave", 200, 100, 16);
-		Property Kentucky=new RealProperty("Kentucky ave", 220,110,18  );
-		Property Indianna=new RealProperty("Indianna ave", 220,110,18  );
-		Property Illinois=new RealProperty("Illinois ave", 240,120,20  );
+		Property Kentucky=new RealProperty("Kentucky ave", 220,110,18);
+		Property Indianna=new RealProperty("Indianna ave", 220,110,18);
+		Property Illinois=new RealProperty("Illinois ave", 240,120,20);
 		Property Atlantic=new RealProperty("Atlantic ave", 260, 130, 22);
 		Property Ventor=new RealProperty("Ventor ave", 260, 130, 22);
 		Property MarvinGardens=new RealProperty("Marvin Gardens", 280, 140, 24);

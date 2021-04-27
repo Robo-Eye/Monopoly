@@ -56,7 +56,8 @@ public abstract class Property {
 		return isMorg;
 	}
 	
-	abstract public int getRent();
+	//Should i take in a board to see
+	abstract public int getRent(Board b);
 	//public void setProperty(String name, int cost, int morgage) {
 	//	this.name=name;
 	//	this.cost=cost;

@@ -14,7 +14,7 @@ public class RealProperty extends Property {
 	//		return this.rent;
 	//	}
 
-	public int getRent() {
+	public int getRent(Board b) {
 		return this.rent;
 	}
 	/*
