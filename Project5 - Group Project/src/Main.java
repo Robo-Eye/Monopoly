@@ -87,4 +87,52 @@ public class Main {
 		// and not actual data
 	}
 
+	public static  void AddProp(Board b) {
+		Property Mediteranean=new Property("Mediterranean ave",60, 30,2  );
+		Property Baltic=new Property("Baltic ave", 60,30, 4 );
+		Property Oriental=new Property("Oriental ave", 100,50, 6 );
+		Property Vermont= new Property("Vermont ave", 100, 50, 6);
+		Property Conneticut=new Property("Conneticut ave", 120, 60, 8);
+		Property StCharles=new Property("St Charles Place", 140,70, 10);
+		Property States=new Property("States ave", 140, 70, 10);
+		Property Virginia=new Property("Virginia ave", 160, 80, 12);
+		Property StJames=new Property("St James Place", 180, 90, 14);
+		Property Tenessee=new Property("Tenessee ave", 180, 90, 14);
+		Property NewYork=new Property("New York ave", 200, 100, 16);
+		Property Kentucky=new Property("Kentucky ave", 220,110,18  );
+		Property Indianna=new Property("Indianna ave", 220,110,18  );
+		Property Illinois=new Property("Illinois ave", 240,120,20  );
+		Property Atlantic=new Property("Atlantic ave", 260, 130, 22);
+		Property Ventor=new Property("Ventor ave", 260, 130, 22);
+		Property MarvinGardens=new Property("Marvin Gardens", 280, 140, 24);
+		Property Pacific=new Property("Pacific ave", 300, 150, 26);
+		Property NorthCarolina=new Property("North Carolina Ave", 300, 150, 26);
+		Property Pennsylvania=new Property("Pennsylvania ave", 320, 160, 28);
+		Property Parkplace=new Property("Park Place", 350, 175, 35);
+		Property Boadwalk=new Property("Boardwalk", 400,200,50 );
+
+		b.propList.add(Mediteranean);
+		b.propList.add(Baltic);
+		b.propList.add(Oriental);
+		b.propList.add(Vermont);
+		b.propList.add(Conneticut);
+		b.propList.add(StCharles);
+		b.propList.add(States);
+		b.propList.add(Virginia);
+		b.propList.add(StJames);
+		b.propList.add(Tenessee);
+		b.propList.add(NewYork);
+		b.propList.add(Kentucky);
+		b.propList.add(Indianna);
+		b.propList.add(Illinois);
+		b.propList.add(Atlantic);
+		b.propList.add(Ventor);
+		b.propList.add(MarvinGardens);
+		b.propList.add(Pacific);
+		b.propList.add(NorthCarolina);
+		b.propList.add(Pennsylvania);
+		b.propList.add(Parkplace);
+		b.propList.add(Boadwalk);
+
+		}
 }
