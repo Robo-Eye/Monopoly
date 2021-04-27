@@ -1,5 +1,5 @@
 
-public class Property {
+public abstract class Property {
 
 	public String name;
 	public int cost;
@@ -56,7 +56,7 @@ public class Property {
 		return isMorg;
 	}
 	
-	
+	abstract public int getRent();
 	//public void setProperty(String name, int cost, int morgage) {
 	//	this.name=name;
 	//	this.cost=cost;
