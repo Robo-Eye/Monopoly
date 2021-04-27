@@ -14,77 +14,45 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// Test Change 1:48 4/24/21
+		
+		//Create board
 		Board b = new Board();
-		b.numPlayers = 4;
+		
+		//Add in players
+		addPlayer(b);
+	
+		//Calls all properties
+		AddProp(b);
+		
+		
 
-		Property boardwalk = new Property("Boardwalk", 400, 200, 100);
-		Property parkplace = new Property("Park Place", 360, 180, 100);
-		Property stJames = new Property("St James Place", 200, 100, 100);
-		Property RRailroad = new Property("Reading Railroad", 400, 200, 100);
-		// for (int i = 0; i < 10; i++) {
-		// System.out.println(b.rollDice());
-		// }
-		Player jeff = new Player("Jeff");
-		Player steve = new Player("Steve");
-		Player fred = new Player("fred");
-		Player joe = new Player("Joe");
-		b.playerList.add(jeff);
-		b.playerList.add(steve);
-		b.playerList.add(fred);
-		b.playerList.add(joe);
-		b.propList.add(boardwalk);
-		b.propList.add(parkplace);
-		b.propList.add(stJames);
-		b.propList.add(RRailroad);
 		int x = 0;
 		while (x < 10) {
-			b.move(jeff);
-			b.move(steve);
-			b.move(fred);
-			b.move(joe);
+			b.move(b.playerList.get(0));
+			b.move(b.playerList.get(1));
+			if(b.numPlayers>2) {
+			b.move(b.playerList.get(2));
+			if(b.numPlayers>3) {
+				b.move(b.playerList.get(3));
+				if(b.numPlayers>4) {
+					b.move(b.playerList.get(4));
+					if(b.numPlayers>5) {
+						b.move(b.playerList.get(5));
+						if(b.numPlayers>6) {
+							b.move(b.playerList.get(6));
+							if(b.numPlayers>7) {
+								b.move(b.playerList.get(7));
+							}
+						}
+					}
+				}
+			}
+			}
 			x++;
 		}
 
-		// Testing move function
-
-		// Testing addmoney, deduct money, and current balance
-
-		// Player p1 = new Player("Tom");
-		// p1.getMoney();
-		// p1.addMoney(500);
-		// p1.getMoney();
-		// p1.deductMoney(300);
-		// p1.getMoney();
-		// // p1.getCurrentSpace();
-		// jeff.changeCurrentSpace(0);
-		// jeff.getCurrentSpace();
-		// RealProperty property1 = new RealProperty("Board walk", 2000, 100);
-		// RealProperty property2 = new RealProperty("Park place", 2000, 100);
-		// b.propList.add(property1);
-		// b.propList.add(property2);
-
-		// Testing File Read
-
-		// File prop = new File("properties.txt");
-		// Scanner f = new Scanner(prop);
-		//
-		// while(f.hasNext()) {
-		// String line = f.nextLine();
-		// Scanner sc = new Scanner(line);
-		// String name = "";
-		// int cost = 0;
-		// int morg = 0;
-		//
-		// while(sc.hasNext()) {
-		// name = sc.next();
-		// cost = Integer.parseInt(sc.next());
-		// morg = Integer.parseInt(sc.next());
-		// }
-		// RealProperty p = new RealProperty(name,cost,morg);
-		// b.propList.add(p);
-		// }
-		// System.out.println(b.propList); //Loop needs fixed as it prints out locations
-		// and not actual data
+		
+	
 	}
 
 	public static  void AddProp(Board b) {
@@ -135,4 +103,47 @@ public class Main {
 		b.propList.add(Boadwalk);
 
 		}
+public static void addPlayer(Board b) {
+	Scanner scan=new Scanner(System.in);
+	System.out.println("Enter how many players are playing, from 2-8");
+	b.numPlayers=scan.nextInt();
+	System.out.println("Enter player 1's name");
+	Player p1=new Player(scan.next());
+	b.playerList.add(p1);
+	System.out.println("Enter player 2's name");
+	Player p2=new Player(scan.next());
+	b.playerList.add(p2);
+	if(b.numPlayers>=3) {
+		System.out.println("Enter player 3's name");
+		Player p3=new Player(scan.next());
+		b.playerList.add(p3);
+		if(b.numPlayers>=4) {
+			System.out.println("Enter player 4's name");
+			Player p4=new Player(scan.next());
+			b.playerList.add(p4);
+			if(b.numPlayers>=5) {
+				System.out.println("Enter player 5's name");
+				Player p5=new Player(scan.next());
+				b.playerList.add(p5);
+				if(b.numPlayers>=6) {
+					System.out.println("Enter player 6's name");
+					Player p6=new Player(scan.next());
+					b.playerList.add(p6);
+					if(b.numPlayers>=7) {
+						System.out.println("Enter player 7's name");
+						Player p7=new Player(scan.next());
+						b.playerList.add(p7);
+						if(b.numPlayers>=8) {
+							System.out.println("Enter player 8's name");
+							Player p8=new Player(scan.next());
+							b.playerList.add(p8);
+						}
+					}
+				}
+			}
+		}
+	}
 }
+					}
+
+
