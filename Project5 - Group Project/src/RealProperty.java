@@ -22,10 +22,7 @@ public class RealProperty extends Property {
 	 * morgage is cost of property/2 or something like that
 	 */
 
-	void morgage() {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	/*
 	 * Build a house on a property
