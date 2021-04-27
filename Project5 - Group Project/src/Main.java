@@ -25,7 +25,7 @@ public class Main {
 		AddProp(b);
 		
 		
-
+		//game seems to stop after 4 properties are bought
 		int x = 0;
 		while (x < 10) {
 			b.move(b.playerList.get(0));
@@ -56,7 +56,7 @@ public class Main {
 	}
 
 	public static  void AddProp(Board b) {
-		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2  );
+		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2);
 		Property Baltic=new RealProperty("Baltic ave", 60,30, 4 );
 		Property Oriental=new RealProperty("Oriental ave", 100,50, 6 );
 		Property Vermont= new RealProperty("Vermont ave", 100, 50, 6);

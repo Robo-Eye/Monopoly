@@ -44,12 +44,9 @@ public class Board {
 		//	}
 		Scanner scn = new Scanner(System.in);
 
-		
-		
-		if(p.getMoney() >= propList.get(p.getCurrentSpace()).cost ) {
-			if (propList.get(p.getCurrentSpace()).getOwner() == null) {
-				System.out.println("Do you want to buy this property for $" 
-				+ propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
+		if (p.getMoney() >= propList.get(p.getCurrentSpace()).cost && propList.get(p.getCurrentSpace()).getOwner() == null) {
+				System.out.println("Do you want to buy this property for $"
+						+ propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
 				if (scn.next().equalsIgnoreCase("Y")) {
 					p.deductMoney(propList.get(p.getCurrentSpace()).getCost());
 					propList.get(p.getCurrentSpace()).changeOwner(p);
@@ -58,19 +55,25 @@ public class Board {
 				} else if (scn.next().equalsIgnoreCase("N")) {
 					System.out.println("No sale");
 				}
-			} else {
-				System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName() + 
-				" rent is " + propList.get(p.getCurrentSpace()).getRent());
-				if(p.getMoney() < 0) {
-					//Working On This 
-			
-				}else {
-					p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
-				}
-				
+		} else if (p != propList.get(p.getCurrentSpace()).getOwner()) {
+			System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName()
+					+ ": rent is " + propList.get(p.getCurrentSpace()).getRent());
+			if ((p.getMoney()) >= (propList.get(p.getCurrentSpace()).getRent())) {
+				int rent = (propList.get(p.getCurrentSpace())).getRent();
+				p.deductMoney(rent);
+				propList.get(p.getCurrentSpace()).getOwner().addMoney(rent);
+				System.out.println(p.getMoney());
+				System.out.println(propList.get(p.getCurrentSpace()).getOwner().getMoney());
+
 			}
+			// write method if players do not have money to pay the rent
+
+			else if ((p.getMoney()) >= (propList.get(p.getCurrentSpace()).getRent())) {
+
+				p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
+			}
+
 		}
-		
 
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;
