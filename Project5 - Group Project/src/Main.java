@@ -56,6 +56,8 @@ public class Main {
 
 	public static  void AddProp(Board b) {
 		
+		Chance change1=new Chance();
+		
 		//Regular properties
 		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2);
 		Property Baltic=new RealProperty("Baltic ave", 60,30, 4 );

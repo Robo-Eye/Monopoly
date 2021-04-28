@@ -32,7 +32,7 @@ public class Board {
 
 		Scanner scn = new Scanner(System.in);
 
-		if (p.getMoney() >= propList.get(p.getCurrentSpace()).cost
+		if (p.getMoney() >= propList.get(p.getCurrentSpace()).getCost()
 				&& propList.get(p.getCurrentSpace()).getOwner() == null) {
 			System.out.println(
 					"Do you want to buy this property for $" + propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");

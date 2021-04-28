@@ -1,7 +1,6 @@
 
 public abstract class Property extends Space{
 
-	public String name;
 	public int cost;
 	public int morgage;
 	public Player owner;
