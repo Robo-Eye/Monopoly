@@ -25,23 +25,11 @@ public class Board {
 	public void move(Player p) {
 		int movement = rollDice();
 		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + movement);
-		// int nextLocation = (p.getCurrentSpace() + movement) % NUM_SPACES;
-		// System.out.println((p.getCurrentSpace()+movement)%NUM_SPACES);
-//		if (movement > NUM_SPACES) {
-//			movement =- NUM_SPACES;
-//		}
+		
 		p.changeCurrentSpace((movement));
-		// p.changeCurrentSpace(movement);
 	
 		System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
 
-		// System.out.println(p.getPlayerName()+" is currently on"+
-		// propList.get(p.getCurrentSpace()).getName());
-		//
-		// p.change CurrentSpace(movement);
-		// if(p.getCurrentSpace()>1) {
-		// p.changeCurrentSpace(movement % 2);
-		// }
 		Scanner scn = new Scanner(System.in);
 
 		if (p.getMoney() >= propList.get(p.getCurrentSpace()).cost
@@ -65,11 +53,13 @@ public class Board {
 			if (p != propList.get(p.getCurrentSpace()).getOwner()) {
 				int rent = (propList.get(p.getCurrentSpace())).getRent();
 				if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
+					
 					//Changed something here, the player in parentehses.
 					int n = ((Player) propList.get(p.getCurrentSpace()).getOwner()).getRailCount();
 					rent = (int) (rent * (Math.pow(2, n - 1)));
 
 				} else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
+					
 					//Changed something here, rthe player in parentheses...
 					int n = ((Player) propList.get(p.getCurrentSpace()).getOwner()).getUtilCount();
 					if (n == 1) {

@@ -1,10 +1,12 @@
 
 public abstract class Space {
 
+	
+	//ALL these methods are abstract and useless.  Space has nothing other than a index in an arrayList  
+	//I think all child classes need to have their methods be abstract in the parent class for some stupid reason.
 	public int cost;
 
 	public abstract Object getOwner();
-		// TODO Auto-generated method stub
 
 	protected abstract int getCost();
 

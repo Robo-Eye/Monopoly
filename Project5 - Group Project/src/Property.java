@@ -5,11 +5,9 @@ public abstract class Property extends Space{
 	public int cost;
 	public int morgage;
 	public Player owner;
-	//public int rent;//CHANGE OVER TO REALPROPERTY
 	private boolean isMorg; 
-	/**
-	 * abstract classes for the morgage and rent of properties
-	 */
+	
+	//Default constructor
 	public Property() {
 		name = "Empty";
 		cost = 0;
@@ -18,31 +16,33 @@ public abstract class Property extends Space{
 	//	rent=0;
 		isMorg = false;
 	}
+	//Getter for owner
 	public Player getOwner() {
 		return this.owner;
 	}
+	//Setter for owner
 	public void changeOwner(Player p) {
 		this.owner=p;
 	}
-	public Property(String name, int cost, int morgage) {//CHANGE RENT OUT TO REALPROP
+	//Constructor
+	public Property(String name, int cost, int morgage) {
 		this.name = name;
 		this.cost = cost;
 		this.morgage = morgage;
 		//this.rent=rent;
 	}
-
+//Getter for cost
 	public int getCost() {
 		return cost;
 	}
-
+//Getter for morgage
 	public int getMorgage() {
 		return morgage;
 	}
+	//Getter for name
 	public String getName() {
 		return name;
 	}
-
-	
 	
 	public void setMorg(boolean b) {
 		isMorg = b;
@@ -52,13 +52,6 @@ public abstract class Property extends Space{
 		return isMorg;
 	}
 	
-	//Should i take in a board to see
 	 abstract public int getRent();
-	//public void setProperty(String name, int cost, int morgage) {
-	//	this.name=name;
-	//	this.cost=cost;
-	//	this.morgage=morgage;
-	//}
-	//abstract void morgage();
 	
 }

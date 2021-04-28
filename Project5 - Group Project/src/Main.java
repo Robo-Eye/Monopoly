@@ -13,7 +13,6 @@ import java.io.*;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		// Test Change 1:48 4/24/21
 		
 		//Create board
 		Board b = new Board();
@@ -24,7 +23,7 @@ public class Main {
 		//Calls all properties
 		AddProp(b);
 		
-		
+		//Gameloop
 		//game seems to stop after 4 properties are bought
 		int x = 0;
 		while (x < 10) {
@@ -56,6 +55,8 @@ public class Main {
 	}
 
 	public static  void AddProp(Board b) {
+		
+		//Regular properties
 		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2);
 		Property Baltic=new RealProperty("Baltic ave", 60,30, 4 );
 		Property Oriental=new RealProperty("Oriental ave", 100,50, 6 );
@@ -79,26 +80,45 @@ public class Main {
 		Property Parkplace=new RealProperty("Park Place", 350, 175, 35);
 		Property Boadwalk=new RealProperty("Boardwalk", 400,200,50 );
 
+		//Railroads
+		Railroad Reading=new Railroad("Reading Railroad", 200, 100);
+		Railroad PennsylvaniaRR=new Railroad("Pennsylvania Railroad", 200, 100);
+		Railroad Bo=new Railroad("B&O Railroad", 200, 100);
+		Railroad Shortline=new Railroad("Short Line Railroad", 200, 100);
+		
+		
+		//Utilities
+		Utility Waterworks=new Utility("Water Works", 150, 75);
+		Utility Electric=new Utility("Electric Company", 150, 75);
+		
+		
+		//IMPORTANT  add in order
 		b.propList.add(Mediteranean);
 		b.propList.add(Baltic);
+		b.propList.add(Reading);
 		b.propList.add(Oriental);
 		b.propList.add(Vermont);
 		b.propList.add(Conneticut);
 		b.propList.add(StCharles);
+		b.propList.add(Electric);
 		b.propList.add(States);
 		b.propList.add(Virginia);
+		b.propList.add(PennsylvaniaRR);
 		b.propList.add(StJames);
 		b.propList.add(Tenessee);
 		b.propList.add(NewYork);
 		b.propList.add(Kentucky);
 		b.propList.add(Indianna);
 		b.propList.add(Illinois);
+		b.propList.add(Bo);
 		b.propList.add(Atlantic);
 		b.propList.add(Ventor);
+		b.propList.add(Waterworks);
 		b.propList.add(MarvinGardens);
 		b.propList.add(Pacific);
 		b.propList.add(NorthCarolina);
 		b.propList.add(Pennsylvania);
+		b.propList.add(Shortline);
 		b.propList.add(Parkplace);
 		b.propList.add(Boadwalk);
 
