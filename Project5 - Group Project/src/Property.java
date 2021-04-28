@@ -1,5 +1,5 @@
 
-public abstract class Property {
+public abstract class Property extends Space{
 
 	public String name;
 	public int cost;

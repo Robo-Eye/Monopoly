@@ -7,7 +7,7 @@ import java.util.Scanner;
 //Pulls is working, is the push working?
 public class Board {
 	public int numPlayers;
-	ArrayList<Property> propList = new ArrayList<Property>();
+	ArrayList<Space> propList = new ArrayList<Space>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
 
 	public final int NUM_SPACES;
@@ -32,6 +32,7 @@ public class Board {
 //		}
 		p.changeCurrentSpace((movement));
 		// p.changeCurrentSpace(movement);
+	
 		System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
 
 		// System.out.println(p.getPlayerName()+" is currently on"+
@@ -64,11 +65,13 @@ public class Board {
 			if (p != propList.get(p.getCurrentSpace()).getOwner()) {
 				int rent = (propList.get(p.getCurrentSpace())).getRent();
 				if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
-					int n = propList.get(p.getCurrentSpace()).getOwner().getRailCount();
+					//Changed something here, the player in parentehses.
+					int n = ((Player) propList.get(p.getCurrentSpace()).getOwner()).getRailCount();
 					rent = (int) (rent * (Math.pow(2, n - 1)));
 
 				} else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
-					int n = propList.get(p.getCurrentSpace()).getOwner().getUtilCount();
+					//Changed something here, rthe player in parentheses...
+					int n = ((Player) propList.get(p.getCurrentSpace()).getOwner()).getUtilCount();
 					if (n == 1) {
 						rent = 4 * movement;
 					} else {
@@ -76,13 +79,13 @@ public class Board {
 					}
 
 				}
-				System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName()
+				System.out.println("Property owned by " + ((Player) propList.get(p.getCurrentSpace()).getOwner()).getPlayerName()
 						+ ": rent is " + rent);
 				if ((p.getMoney()) >= rent) {
 					p.deductMoney(rent);
-					propList.get(p.getCurrentSpace()).getOwner().addMoney(rent);
+					((Player) propList.get(p.getCurrentSpace()).getOwner()).addMoney(rent);
 					System.out.println(p.getMoney());
-					System.out.println(propList.get(p.getCurrentSpace()).getOwner().getMoney());
+					System.out.println(((Player) propList.get(p.getCurrentSpace()).getOwner()).getMoney());
 
 				}
 				// write method if players do not have money to pay the rent
@@ -94,7 +97,7 @@ public class Board {
 
 			}
 		}
-
+		
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;
 		} else {
