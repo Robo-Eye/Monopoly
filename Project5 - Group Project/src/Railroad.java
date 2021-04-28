@@ -14,6 +14,7 @@ public class Railroad extends Property {
 				rrCount++;
 			}
 		}
+		
 		if(rrCount==1) {
 		return 25;
 		}else if(rrCount==2) {

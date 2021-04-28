@@ -6,6 +6,7 @@ public class Utility extends Property{
 	@Override
 	public int getRent(Board b) {
 		// TODO Auto-generated method stub
+		//moo
 		return(b.rollDice());
 		
 	}
