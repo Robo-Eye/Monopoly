@@ -44,12 +44,8 @@ public abstract class Property {
 
 	
 	
-	public void setIsMorg(Property p) {
-		if(isMorg) {
-			p.isMorg = false;
-		}else {
-			p.isMorg = true;
-		}
+	public void setMorg(boolean b) {
+		isMorg = b;
 	}
 	
 	public boolean getIsMorg() {

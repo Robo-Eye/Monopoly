@@ -49,6 +49,12 @@ public class Board {
 						+ propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
 				if (scn.next().equalsIgnoreCase("Y")) {
 					p.deductMoney(propList.get(p.getCurrentSpace()).getCost());
+					if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
+						p.setRailCount(p.getRailCount() + 1);
+					}
+					else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
+						p.setUtilCount(p.getUtilCount() + 1);
+					}
 					propList.get(p.getCurrentSpace()).changeOwner(p);
 					System.out.println("Sale successfull");
 					System.out.println("Balance of " + p.getPlayerName() + " is $" + p.getMoney());
