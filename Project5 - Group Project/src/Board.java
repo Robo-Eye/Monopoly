@@ -56,10 +56,25 @@ public class Board {
 					System.out.println("No sale");
 				}
 		} else if (p != propList.get(p.getCurrentSpace()).getOwner()) {
+			int rent = (propList.get(p.getCurrentSpace())).getRent();
+			if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
+				int n = propList.get(p.getCurrentSpace()).getOwner().getRailCount();
+				rent = (int) (rent*(Math.pow(2, n-1)));
+				
+			}
+			else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
+				int n = propList.get(p.getCurrentSpace()).getOwner().getUtilCount();
+				if (n == 1) {
+					rent = 4*movement;
+				}
+				else {
+					rent = 10*movement;
+				}
+				
+			}
 			System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName()
-					+ ": rent is " + propList.get(p.getCurrentSpace()).getRent());
-			if ((p.getMoney()) >= (propList.get(p.getCurrentSpace()).getRent())) {
-				int rent = (propList.get(p.getCurrentSpace())).getRent();
+					+ ": rent is " + rent);
+			if ((p.getMoney()) >= rent) {
 				p.deductMoney(rent);
 				propList.get(p.getCurrentSpace()).getOwner().addMoney(rent);
 				System.out.println(p.getMoney());
