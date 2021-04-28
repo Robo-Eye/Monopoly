@@ -25,7 +25,7 @@ public class Main {
 		AddProp(b);
 		
 		
-
+		//game seems to stop after 4 properties are bought
 		int x = 0;
 		while (x < 10) {
 			b.move(b.playerList.get(0));

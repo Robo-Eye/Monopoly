@@ -44,12 +44,8 @@ public abstract class Property {
 
 	
 	
-	public void setIsMorg(Property p) {
-		if(isMorg) {
-			p.isMorg = false;
-		}else {
-			p.isMorg = true;
-		}
+	public void setMorg(boolean b) {
+		isMorg = b;
 	}
 	
 	public boolean getIsMorg() {
@@ -57,11 +53,12 @@ public abstract class Property {
 	}
 	
 	//Should i take in a board to see
-	abstract public int getRent(Board b);
+	 abstract public int getRent();
 	//public void setProperty(String name, int cost, int morgage) {
 	//	this.name=name;
 	//	this.cost=cost;
 	//	this.morgage=morgage;
 	//}
 	//abstract void morgage();
+	
 }
