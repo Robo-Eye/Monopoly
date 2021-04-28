@@ -33,79 +33,66 @@ public class Board {
 		p.changeCurrentSpace((movement));
 		// p.changeCurrentSpace(movement);
 		System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
-		
-		
+
 		// System.out.println(p.getPlayerName()+" is currently on"+
 		// propList.get(p.getCurrentSpace()).getName());
-		//	
-		//	p.change CurrentSpace(movement);
-		//	if(p.getCurrentSpace()>1) {
-		//		p.changeCurrentSpace(movement % 2);
-		//	}
+		//
+		// p.change CurrentSpace(movement);
+		// if(p.getCurrentSpace()>1) {
+		// p.changeCurrentSpace(movement % 2);
+		// }
 		Scanner scn = new Scanner(System.in);
 
-		if (p.getMoney() >= propList.get(p.getCurrentSpace()).cost && propList.get(p.getCurrentSpace()).getOwner() == null) {
-				System.out.println("Do you want to buy this property for $"
-						+ propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
-				if (scn.next().equalsIgnoreCase("Y")) {
-					p.deductMoney(propList.get(p.getCurrentSpace()).getCost());
-					if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
-						p.setRailCount(p.getRailCount() + 1);
-					}
-					else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
-						p.setUtilCount(p.getUtilCount() + 1);
-					}
-					propList.get(p.getCurrentSpace()).changeOwner(p);
-					System.out.println("Sale successfull");
-					System.out.println("Balance of " + p.getPlayerName() + " is $" + p.getMoney());
-				} else if (scn.next().equalsIgnoreCase("N")) {
-					System.out.println("No sale");
+		if (p.getMoney() >= propList.get(p.getCurrentSpace()).cost
+				&& propList.get(p.getCurrentSpace()).getOwner() == null) {
+			System.out.println(
+					"Do you want to buy this property for $" + propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
+			if (scn.next().equalsIgnoreCase("Y")) {
+				p.deductMoney(propList.get(p.getCurrentSpace()).getCost());
+				if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
+					p.setRailCount(p.getRailCount() + 1);
+				} else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
+					p.setUtilCount(p.getUtilCount() + 1);
 				}
-<<<<<<< HEAD
-			} else {
-				System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName() + 
-				//THIS THROWS ERRORS SINCE utility and railroads need a board, but cant call getRent in board class.
-						" rent is " + propList.get(p.getCurrentSpace()).getRent());
-				if(p.getMoney() < 0) {
-					//Working On This 
-			
-				}else {
+				propList.get(p.getCurrentSpace()).changeOwner(p);
+				System.out.println("Sale successfull");
+				System.out.println("Balance of " + p.getPlayerName() + " is $" + p.getMoney());
+			} else if (scn.next().equalsIgnoreCase("N")) {
+				System.out.println("No sale");
+			}
+		} else {
+			if (p != propList.get(p.getCurrentSpace()).getOwner()) {
+				int rent = (propList.get(p.getCurrentSpace())).getRent();
+				if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
+					int n = propList.get(p.getCurrentSpace()).getOwner().getRailCount();
+					rent = (int) (rent * (Math.pow(2, n - 1)));
+
+				} else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
+					int n = propList.get(p.getCurrentSpace()).getOwner().getUtilCount();
+					if (n == 1) {
+						rent = 4 * movement;
+					} else {
+						rent = 10 * movement;
+					}
+
+				}
+				System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName()
+						+ ": rent is " + rent);
+				if ((p.getMoney()) >= rent) {
+					p.deductMoney(rent);
+					propList.get(p.getCurrentSpace()).getOwner().addMoney(rent);
+					System.out.println(p.getMoney());
+					System.out.println(propList.get(p.getCurrentSpace()).getOwner().getMoney());
+
+				}
+				// write method if players do not have money to pay the rent
+
+				else if ((p.getMoney()) >= (propList.get(p.getCurrentSpace()).getRent())) {
+
 					p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
-=======
-		} else if (p != propList.get(p.getCurrentSpace()).getOwner()) {
-			int rent = (propList.get(p.getCurrentSpace())).getRent();
-			if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
-				int n = propList.get(p.getCurrentSpace()).getOwner().getRailCount();
-				rent = (int) (rent*(Math.pow(2, n-1)));
-				
-			}
-			else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
-				int n = propList.get(p.getCurrentSpace()).getOwner().getUtilCount();
-				if (n == 1) {
-					rent = 4*movement;
 				}
-				else {
-					rent = 10*movement;
->>>>>>> branch 'player' of https://github.com/Robo-Eye/Monopoly.git
-				}
-				
-			}
-			System.out.println("Property owned by " + propList.get(p.getCurrentSpace()).getOwner().getPlayerName()
-					+ ": rent is " + rent);
-			if ((p.getMoney()) >= rent) {
-				p.deductMoney(rent);
-				propList.get(p.getCurrentSpace()).getOwner().addMoney(rent);
-				System.out.println(p.getMoney());
-				System.out.println(propList.get(p.getCurrentSpace()).getOwner().getMoney());
 
 			}
-			// write method if players do not have money to pay the rent
-
-			else if ((p.getMoney()) >= (propList.get(p.getCurrentSpace()).getRent())) {
-
-				p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
-			}
-
 		}
 
 		if (playerTurn == numPlayers) {
