@@ -94,10 +94,11 @@ public class Main {
 		
 		//Taxes 
 		Taxes income=new Taxes("Income tax", 200);
-		
+		Taxes luxury=new Taxes("Luxury tax", 100);
 		//IMPORTANT  add in order
 		b.propList.add(Mediteranean);
 		b.propList.add(Baltic);
+		b.propList.add(income);
 		b.propList.add(Reading);
 		b.propList.add(Oriental);
 		b.propList.add(Vermont);
@@ -123,8 +124,8 @@ public class Main {
 		b.propList.add(Pennsylvania);
 		b.propList.add(Shortline);
 		b.propList.add(Parkplace);
+		b.propList.add(luxury);
 		b.propList.add(Boadwalk);
-
 		}
 public static void addPlayer(Board b) {
 	Scanner scan=new Scanner(System.in);

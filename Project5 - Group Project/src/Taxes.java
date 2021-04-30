@@ -39,5 +39,20 @@ protected String getName() {
 	// TODO Auto-generated method stub
 	return null;
 }
+@Override
+protected void setMorg(boolean b) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+protected boolean getIsMorg() {
+	// TODO Auto-generated method stub
+	return false;
+}
+@Override
+protected int getMorgage() {
+	// TODO Auto-generated method stub
+	return 0;
+}
 
 }
