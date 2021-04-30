@@ -5,13 +5,14 @@ public class Player {
 	private int currSpace;
 	private int railCount;
 	private int utilCount;
-
+private boolean inJail;
 	public Player(String name) {
 		playerName = name;
 		currBal = 1500;
 		currSpace = 0;
 		railCount = 0;
 		utilCount = 0;
+		inJail=false;
 		
 	}
 
@@ -52,12 +53,20 @@ public class Player {
 	}
 
 	public void changeCurrentSpace(int move) {
-		currSpace = (currSpace + move) % 28;//CHANGE THIS FOR HOWEVER MANY SPACES THERE ARE
+		currSpace = (currSpace + move) % 40;//CHANGE THIS FOR HOWEVER MANY SPACES THERE ARE
 	}
-
+public void goJail() {
+	currSpace=10;
+}
 	public int getCurrentSpace() {
 
 		return currSpace;
+	}
+	public void setJail(Boolean b) {
+		this.inJail=b;
+	}
+	public Boolean getJail() {
+		return this.inJail;
 	}
 
 }

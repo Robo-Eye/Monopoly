@@ -16,7 +16,7 @@ public class Board {
 	int playerTurn;
 
 	public Board() {
-		NUM_SPACES = 30;
+		NUM_SPACES = 40;
 		playerTurn = 0;
 		numPlayers = playerList.size();
 	}
@@ -26,19 +26,64 @@ public class Board {
 	 */
 
 	public void move(Player p) {
+		int startPoint=p.getCurrentSpace();
 		int movement = rollDice();
-		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + movement);
+		
+		
+		
+		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + movement+" and have a balance of $"+p.getMoney());
 
 		p.changeCurrentSpace((movement));
 
 		System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
 
+		Space space=propList.get(p.getCurrentSpace());
+
+		
+		//Go
+if(startPoint>0&&p.getCurrentSpace()<startPoint&&p.getJail()==false) {
+	System.out.println("You passed Go!  You collect $200");
+	p.addMoney(200);
+	System.out.println("Updated balance: $"+p.getMoney());
+}
+//Jail
+if(space instanceof Jail) {
+	//If your just visiting
+	if(p.getJail()==false) {
+		System.out.println("Just visiting!");
+	}else {
+		System.out.println("Oof.  Your in jail.  Pay $50 next turn, roll doubles, or use a get out of jail free card to escape.");
+	}
+}
+
+
+//Go to jail
+if(space instanceof GoToJail) {
+	System.out.println("Go to jail! Go directly to jail.  Do not pass go, do not collect $200");
+	p.goJail();
+	p.setJail(true);
+}
+
+//Jail
+if(space instanceof Jail) {
+	//If your just visiting
+	if(p.getJail()==false) {
+		System.out.println("Just visiting!");
+	}else {
+		System.out.println("Oof.  Your in jail.  Pay $50 next turn, roll doubles, or use a get out of jail free card to escape.");
+	}
+}
+		//Properties
 		Scanner scn = new Scanner(System.in);
 		if (propList.get(p.getCurrentSpace()) instanceof Property) {
 			Property pr = (Property) propList.get(p.getCurrentSpace());
+			
+			if(pr.getOwner()==p) {
+				System.out.println("You already own this property.  No rent today!");
+			}
 			if (pr.getOwner() == null) {
 				if (p.getMoney() >= pr.getCost()) {
-					System.out.println("Do you want to buy this property for $" + pr.getCost() + "?  Y/N");
+					System.out.println("Do you want to buy "+propList.get(p.getCurrentSpace()).getName() +" for $" + pr.getCost() + "?  Y/N");
 					String response = scn.next();
 					if (response.equalsIgnoreCase("Y")) {
 						p.deductMoney(pr.getCost());
@@ -83,8 +128,8 @@ public class Board {
 					if ((p.getMoney()) >= rent) {
 						p.deductMoney(rent);
 						((Player) pr.getOwner()).addMoney(rent);
-						System.out.println(p.getMoney());
-						System.out.println(((Player) pr.getOwner()).getMoney());
+						System.out.println(p.getPlayerName()+"'s balance: $"+p.getMoney());
+						System.out.println(pr.getOwner().getPlayerName()+"'s balance: $"+((Player) pr.getOwner()).getMoney());
 
 					} else {
 						while ((p.getMoney() < rent) && isitMorgaged(p)) {
@@ -131,6 +176,30 @@ public class Board {
 				}
 			}
 
+		//Taxes
+		if(propList.get(p.getCurrentSpace()) instanceof Taxes) {
+	System.out.println("Uh oh! You landed on "+space.getName()+".  You owe $"+((Taxes) space).getTaxes());
+		p.deductMoney(((Taxes) space).getTaxes());
+		System.out.println("Current balance: $"+p.getMoney());
+		}
+		
+		//Free parking
+		if(space instanceof FreeParking) {
+			System.out.println("Its your lucky day!  Free parking!");
+		}
+		//Chance
+		if(space instanceof Chance) {
+			System.out.println("You got chance!  More code to follow");
+		}
+		
+		//Commnity chest
+		if(space instanceof ComChest) {
+			System.out.println("You got a chest card!  MOre to follow");
+		}
+		
+		
+		
+		//Switching turns
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;
 		} else {
