@@ -16,10 +16,5 @@ public Railroad() {
 		// TODO Auto-generated method stub
 		return 25;
 	}
-@Override
-protected int getTaxes() {
-	// TODO Auto-generated method stub
-	return 0;
-}
 
 }

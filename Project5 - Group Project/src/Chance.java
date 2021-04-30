@@ -6,7 +6,7 @@ public Chance() {
 }
 
 @Override
-public Object getOwner() {
+public Player getOwner() {
 	// TODO Auto-generated method stub
 	return null;
 }
@@ -33,6 +33,18 @@ protected int getRent() {
 protected String getName() {
 	// TODO Auto-generated method stub
 	return null;
+}
+
+@Override
+protected boolean getIsMorg() {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+@Override
+protected int getMorgage() {
+	// TODO Auto-generated method stub
+	return 0;
 }
 
 

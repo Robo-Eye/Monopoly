@@ -18,6 +18,7 @@ public class Board {
 	public Board() {
 		NUM_SPACES = 4;
 		playerTurn = 0;
+		numPlayers = playerList.size();
 	}
 
 	/**
@@ -78,6 +79,7 @@ public class Board {
 					((Player) propList.get(p.getCurrentSpace()).getOwner()).addMoney(rent);
 					System.out.println(p.getMoney());
 					System.out.println(((Player) propList.get(p.getCurrentSpace()).getOwner()).getMoney());
+					
 
 				}
 				else {
@@ -101,9 +103,18 @@ public class Board {
 						optionList.remove(choice);
 					}
 					
-					if (p.getMoney() < rent) {
-						//bankruptcy steps
+					if (p.getMoney() < rent) { //player is bankrupt
+						for (int k = 0; k < propList.size(); k++) {
+							if (p == propList.get(k).getOwner()) {
+								propList.get(k).changeOwner(propList.get(p.getCurrentSpace()).getOwner());
+							}
+						}
+						int bankruptmoney = p.getMoney();
+						p.deductMoney(p.getMoney());
+						propList.get(p.getCurrentSpace()).getOwner().addMoney(bankruptmoney);
+						playerList.remove(p);
 					}
+					
 					
 				// write method if players do not have money to pay the rent
 

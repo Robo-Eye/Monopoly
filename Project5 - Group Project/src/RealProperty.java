@@ -12,10 +12,5 @@ public class RealProperty extends Property {
 		return this.rent;
 	}
 
-	@Override
-	protected int getTaxes() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

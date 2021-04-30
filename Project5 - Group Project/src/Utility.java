@@ -11,7 +11,11 @@ public class Utility extends Property{
 	 public int getRent() {
 		// TODO Auto-generated method stub
 		//moo
+		
 		return 0;
 		
 	}
+
+
+
 }
