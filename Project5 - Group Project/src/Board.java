@@ -16,7 +16,7 @@ public class Board {
 	int playerTurn;
 
 	public Board() {
-		NUM_SPACES = 4;
+		NUM_SPACES = 30;
 		playerTurn = 0;
 		numPlayers = playerList.size();
 	}
@@ -35,22 +35,28 @@ public class Board {
 
 		Scanner scn = new Scanner(System.in);
 
-		if (p.getMoney() >= propList.get(p.getCurrentSpace()).getCost()
-				&& propList.get(p.getCurrentSpace()).getOwner() == null) {
-			System.out.println(
-					"Do you want to buy this property for $" + propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
-			if (scn.next().equalsIgnoreCase("Y")) {
-				p.deductMoney(propList.get(p.getCurrentSpace()).getCost());
-				if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
-					p.setRailCount(p.getRailCount() + 1);
-				} else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
-					p.setUtilCount(p.getUtilCount() + 1);
+		if (propList.get(p.getCurrentSpace()).getOwner() == null) {
+			if (p.getMoney() >= propList.get(p.getCurrentSpace()).getCost()) {
+				System.out.println("Do you want to buy this property for $"
+						+ propList.get(p.getCurrentSpace()).getCost() + "?  Y/N");
+				if (scn.next().equalsIgnoreCase("Y")) {
+					p.deductMoney(propList.get(p.getCurrentSpace()).getCost());
+					if (propList.get(p.getCurrentSpace()) instanceof Railroad) {
+						p.setRailCount(p.getRailCount() + 1);
+					} else if (propList.get(p.getCurrentSpace()) instanceof Utility) {
+						p.setUtilCount(p.getUtilCount() + 1);
+					}
+					propList.get(p.getCurrentSpace()).changeOwner(p);
+					System.out.println("Sale successfull");
+					System.out.println("Balance of " + p.getPlayerName() + " is $" + p.getMoney());
+				} else if (scn.next().equalsIgnoreCase("N")) {
+					System.out.println("No sale");
 				}
-				propList.get(p.getCurrentSpace()).changeOwner(p);
-				System.out.println("Sale successfull");
-				System.out.println("Balance of " + p.getPlayerName() + " is $" + p.getMoney());
-			} else if (scn.next().equalsIgnoreCase("N")) {
-				System.out.println("No sale");
+			}
+
+			else {
+				System.out.println("You cannot buy this property because you don't have enough money.");
+
 			}
 		} else {
 			if (p != propList.get(p.getCurrentSpace()).getOwner()) {
@@ -72,7 +78,7 @@ public class Board {
 					}
 
 				}
-				System.out.println("Property owned by " + ((Player) propList.get(p.getCurrentSpace()).getOwner()).getPlayerName()
+				System.out.println("Property owned by " + (propList.get(p.getCurrentSpace()).getOwner()).getPlayerName()
 						+ ": rent is " + rent);
 				if ((p.getMoney()) >= rent) {
 					p.deductMoney(rent);

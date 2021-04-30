@@ -25,7 +25,7 @@ public class Main {
 		//Gameloop
 		//game seems to stop after 4 properties are bought
 		int x = 0;
-		while (x < 10) {
+		while (x < 30) {
 			b.move(b.playerList.get(0));
 			b.move(b.playerList.get(1));
 			if(b.numPlayers>2) {
