@@ -10,7 +10,7 @@ public class Board {
 	public int numPlayers;
 	ArrayList<Space> propList = new ArrayList<Space>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
-	HashMap<Integer, Integer> optionList = new HashMap<Integer, Integer>();
+	ArrayList<Integer> optionList = new ArrayList<Integer>();
 
 	public final int NUM_SPACES;
 	int playerTurn;
@@ -79,8 +79,7 @@ public class Board {
 						}
 
 					}
-					System.out.println("Property owned by "
-							+ (pr.getOwner()).getPlayerName() + ": rent is " + rent);
+					System.out.println("Property owned by " + (pr.getOwner()).getPlayerName() + ": rent is " + rent);
 					if ((p.getMoney()) >= rent) {
 						p.deductMoney(rent);
 						((Player) pr.getOwner()).addMoney(rent);
@@ -88,35 +87,30 @@ public class Board {
 						System.out.println(((Player) pr.getOwner()).getMoney());
 
 					} else {
-						while ((p.getMoney() < rent) && (isitMorgaged(p)) == true) {
-							int count = 0;
-							for (int i = 0; i < propList.size(); i++) {
-								if (propList.get(i) instanceof Property) {
-									Property prop = (Property) propList.get(i);
+						while ((p.getMoney() < rent) && isitMorgaged(p)) {
+						optionList = new ArrayList<>();
+						for (int i = 0; i < propList.size(); i++) {
+							if (propList.get(i) instanceof Property) {
+								Property prop = (Property) propList.get(i);
 								if (prop.getOwner() == p && prop.getIsMorg() == false) {
-									count++;
-									optionList.put(count, i);
-								}
+									optionList.add(i);
 								}
 							}
-
+						}
 							for (int j = 0; j < optionList.size(); j++) {
 								if (propList.get(optionList.get(j)) instanceof Property) {
 									Property pr1 = (Property) propList.get(optionList.get(j));
-									System.out.println("hello");
-									System.out.println(j);
-									System.out.println(". ");
-									System.out.println(pr1.getName());
-									System.out.println(" has a mortgage value of $");
-									System.out.println(pr1.getMorgage());
+									System.out.println(j+1 + ". " + pr1.getName() + " has a mortgage value of $" + pr1.getMorgage() + ".");
 								}
 							}
 
 							System.out.println("Enter the number of the property you would like to mortgage: ");
 							int choice = scn.nextInt();
-							Property pr2 = (Property) propList.get(optionList.get(choice));
+							Property pr2 = (Property) propList.get(optionList.get(choice - 1));
 							p.addMoney((pr2).getMorgage());
-							optionList.remove(choice);
+							pr2.setMorg(true);
+							optionList.remove(choice - 1);
+							
 						}
 
 						if (p.getMoney() < rent) { // player is bankrupt
@@ -130,15 +124,12 @@ public class Board {
 							p.deductMoney(p.getMoney());
 							pr.getOwner().addMoney(bankruptmoney);
 							playerList.remove(p);
+							}
 						}
-
-						// write method if players do not have money to pay the rent
-
 					}
 
 				}
 			}
-		}
 
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;
@@ -173,12 +164,12 @@ public class Board {
 		boolean propToMorgage = false;
 		for (int i = 0; i < propList.size(); i++) {
 			if (propList.get(i) instanceof Property) {
-			Property pr = (Property) propList.get(i);
-			if (pr.getIsMorg() == false && p == pr.getOwner()) {
-				propToMorgage = true;
-				break;
+				Property pr = (Property) propList.get(i);
+				if (pr.getIsMorg() == false && p == pr.getOwner()) {
+					propToMorgage = true;
+					break;
+				}
 			}
-		}
 		}
 		if (propToMorgage == true) {
 			return true;

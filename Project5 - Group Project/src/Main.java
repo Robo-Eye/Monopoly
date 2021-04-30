@@ -24,8 +24,7 @@ public class Main {
 		AddProp(b);
 		//Gameloop
 		//game seems to stop after 4 properties are bought
-		int x = 0;
-		while (x < 40) {
+		while (b.playerList.size() > 1) {
 			b.move(b.playerList.get(0));
 			b.move(b.playerList.get(1));
 			if(b.numPlayers>2) {
@@ -46,8 +45,8 @@ public class Main {
 				}
 			}
 			}
-			x++;
 		}
+		System.out.println("Game over.  " + b.playerList.get(0) + " wins.");
 
 		
 	
