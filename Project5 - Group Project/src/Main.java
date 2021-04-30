@@ -55,7 +55,6 @@ public class Main {
 
 	public static  void AddProp(Board b) {
 		
-		Chance chance1=new Chance();
 		
 		//Regular properties
 		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2);
@@ -87,20 +86,35 @@ public class Main {
 		Railroad Bo=new Railroad("B&O Railroad", 200, 100);
 		Railroad Shortline=new Railroad("Short Line Railroad", 200, 100);
 		
-		
+		//Community Chest
+		ComChest comChest1=new ComChest();
+		ComChest comChest2=new ComChest();
+		ComChest comChest3=new ComChest();
+		//Chance
+		Chance chance1=new Chance();
+		Chance chance2=new Chance();
+		Chance chance3=new Chance();
 		//Utilities
 		Utility Waterworks=new Utility("Water Works", 150, 75);
 		Utility Electric=new Utility("Electric Company", 150, 75);
+		
+		//go
+		Go go=new Go();
+		//Free parking
+		FreeParking FreeParking=new FreeParking();
 		
 		//Taxes 
 		Taxes income=new Taxes("Income tax", 200);
 		Taxes luxury=new Taxes("Luxury tax", 100);
 		//IMPORTANT  add in order
+		b.propList.add(go);
 		b.propList.add(Mediteranean);
+		b.propList.add(comChest1);
 		b.propList.add(Baltic);
 		b.propList.add(income);
 		b.propList.add(Reading);
 		b.propList.add(Oriental);
+		b.propList.add(chance1);
 		b.propList.add(Vermont);
 		b.propList.add(Conneticut);
 		b.propList.add(StCharles);
@@ -109,9 +123,12 @@ public class Main {
 		b.propList.add(Virginia);
 		b.propList.add(PennsylvaniaRR);
 		b.propList.add(StJames);
+		b.propList.add(comChest2);
 		b.propList.add(Tenessee);
 		b.propList.add(NewYork);
+		b.propList.add(FreeParking);
 		b.propList.add(Kentucky);
+		b.propList.add(chance2);
 		b.propList.add(Indianna);
 		b.propList.add(Illinois);
 		b.propList.add(Bo);
@@ -121,8 +138,10 @@ public class Main {
 		b.propList.add(MarvinGardens);
 		b.propList.add(Pacific);
 		b.propList.add(NorthCarolina);
+		b.propList.add(comChest3);
 		b.propList.add(Pennsylvania);
 		b.propList.add(Shortline);
+		b.propList.add(chance3);
 		b.propList.add(Parkplace);
 		b.propList.add(luxury);
 		b.propList.add(Boadwalk);
