@@ -53,9 +53,11 @@ private boolean inJail;
 	}
 
 	public void changeCurrentSpace(int move) {
-		currSpace = (currSpace + move) % 38;//CHANGE THIS FOR HOWEVER MANY SPACES THERE ARE
+		currSpace = (currSpace + move) % 40;//CHANGE THIS FOR HOWEVER MANY SPACES THERE ARE
 	}
-
+public void goJail() {
+	currSpace=10;
+}
 	public int getCurrentSpace() {
 
 		return currSpace;

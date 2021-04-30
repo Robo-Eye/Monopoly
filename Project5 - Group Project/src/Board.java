@@ -16,7 +16,7 @@ public class Board {
 	int playerTurn;
 
 	public Board() {
-		NUM_SPACES = 38;
+		NUM_SPACES = 40;
 		playerTurn = 0;
 		numPlayers = playerList.size();
 	}
@@ -36,14 +36,44 @@ public class Board {
 		p.changeCurrentSpace((movement));
 
 		System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
-//Go
+
+		Space space=propList.get(p.getCurrentSpace());
+
+		
+		//Go
 if(startPoint>0&&p.getCurrentSpace()<startPoint&&p.getJail()==false) {
 	System.out.println("You passed Go!  You collect $200");
 	p.addMoney(200);
 	System.out.println("Updated balance: $"+p.getMoney());
 }
-		
-		
+//Jail
+if(space instanceof Jail) {
+	//If your just visiting
+	if(p.getJail()==false) {
+		System.out.println("Just visiting!");
+	}else {
+		System.out.println("Oof.  Your in jail.  Pay $50 next turn, roll doubles, or use a get out of jail free card to escape.");
+	}
+}
+
+
+//Go to jail
+if(space instanceof GoToJail) {
+	System.out.println("Go to jail! Go directly to jail.  Do not pass go, do not collect $200");
+	p.goJail();
+	p.setJail(true);
+}
+
+//Jail
+if(space instanceof Jail) {
+	//If your just visiting
+	if(p.getJail()==false) {
+		System.out.println("Just visiting!");
+	}else {
+		System.out.println("Oof.  Your in jail.  Pay $50 next turn, roll doubles, or use a get out of jail free card to escape.");
+	}
+}
+		//Properties
 		Scanner scn = new Scanner(System.in);
 		if (propList.get(p.getCurrentSpace()) instanceof Property) {
 			Property pr = (Property) propList.get(p.getCurrentSpace());
@@ -156,7 +186,6 @@ if(startPoint>0&&p.getCurrentSpace()<startPoint&&p.getJail()==false) {
 		}
 
 		//Taxes
-		Space space=propList.get(p.getCurrentSpace());
 		if(propList.get(p.getCurrentSpace()) instanceof Taxes) {
 	System.out.println("Uh oh! You landed on "+space.getName()+".  You owe $"+((Taxes) space).getTaxes());
 		p.deductMoney(((Taxes) space).getTaxes());

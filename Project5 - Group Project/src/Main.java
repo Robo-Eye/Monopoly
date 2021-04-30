@@ -106,6 +106,13 @@ public class Main {
 		//Taxes 
 		Taxes income=new Taxes("Income tax", 200);
 		Taxes luxury=new Taxes("Luxury tax", 100);
+		
+		//Jail
+		Jail jail=new Jail();
+		
+		//Go to Jail
+		GoToJail goToJail=new GoToJail();
+		
 		//IMPORTANT  add in order
 		b.propList.add(go);
 		b.propList.add(Mediteranean);
@@ -117,6 +124,7 @@ public class Main {
 		b.propList.add(chance1);
 		b.propList.add(Vermont);
 		b.propList.add(Conneticut);
+		b.propList.add(jail);
 		b.propList.add(StCharles);
 		b.propList.add(Electric);
 		b.propList.add(States);
@@ -136,6 +144,7 @@ public class Main {
 		b.propList.add(Ventor);
 		b.propList.add(Waterworks);
 		b.propList.add(MarvinGardens);
+		b.propList.add(goToJail);
 		b.propList.add(Pacific);
 		b.propList.add(NorthCarolina);
 		b.propList.add(comChest3);

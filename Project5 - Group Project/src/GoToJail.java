@@ -1,9 +1,7 @@
 
-public class GoToJail {
-/**
- * Sends player to jail if landed on
- */
-	public void moveJail() {
-		
+public class GoToJail extends Space{
+
+	public GoToJail() {
+		this.name="Go To Jail";
 	}
 }
