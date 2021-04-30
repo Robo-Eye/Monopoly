@@ -140,6 +140,16 @@ public class Board {
 			}
 		}
 
+		//Taxes
+		Space space=propList.get(p.getCurrentSpace());
+		if(propList.get(p.getCurrentSpace()) instanceof Taxes) {
+	System.out.println("Uh oh! You landed on "+space.getName()+".  You owe $"+((Taxes) space).getTaxes());
+		p.deductMoney(((Taxes) space).getTaxes());
+		System.out.println("Current balance: $"+p.getMoney());
+		}
+		
+		
+		
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;
 		} else {
