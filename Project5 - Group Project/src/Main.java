@@ -22,7 +22,6 @@ public class Main {
 	
 		//Calls all properties
 		AddProp(b);
-		
 		//Gameloop
 		//game seems to stop after 4 properties are bought
 		int x = 0;
@@ -93,6 +92,8 @@ public class Main {
 		Utility Waterworks=new Utility("Water Works", 150, 75);
 		Utility Electric=new Utility("Electric Company", 150, 75);
 		
+		//Taxes 
+		Taxes income=new Taxes("Income tax", 200);
 		
 		//IMPORTANT  add in order
 		b.propList.add(Mediteranean);

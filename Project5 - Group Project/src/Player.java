@@ -52,7 +52,7 @@ public class Player {
 	}
 
 	public void changeCurrentSpace(int move) {
-		currSpace = (currSpace + move) % 4;
+		currSpace = (currSpace + move) % 28;//CHANGE THIS FOR HOWEVER MANY SPACES THERE ARE
 	}
 
 	public int getCurrentSpace() {

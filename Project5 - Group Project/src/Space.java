@@ -2,6 +2,7 @@
 public abstract class Space {
 
 	String name;
+	
 	//ALL these methods are abstract and useless.  Space has nothing other than a index in an arrayList  
 	//I think all child classes need to have their methods be abstract in the parent class for some stupid reason.
 
@@ -13,7 +14,6 @@ public abstract class Space {
 
 	protected abstract int getRent();
 
-	protected abstract String getName();
 	
 	protected abstract void setMorg(boolean b);
 	
@@ -21,6 +21,12 @@ public abstract class Space {
 	
 	protected abstract int getMorgage();
 
+	protected  String getName() {
+		return name;
+	}
+
+	protected abstract int getTaxes();
+		
 	
 
 }
