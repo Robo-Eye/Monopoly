@@ -61,16 +61,6 @@ public class Board {
 			p.setJail(true);
 		}
 
-//Jail
-		if (space instanceof Jail) {
-			// If your just visiting
-			if (p.getJail() == false) {
-				System.out.println("Just visiting!");
-			} else {
-				System.out.println(
-						"Oof.  Your in jail.  Pay $50 next turn, roll doubles, or use a get out of jail free card to escape.");
-			}
-		}
 		// Properties
 		Scanner scn = new Scanner(System.in);
 		if (space instanceof Property) {
