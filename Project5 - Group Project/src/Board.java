@@ -64,15 +64,6 @@ if(space instanceof GoToJail) {
 	p.setJail(true);
 }
 
-//Jail
-if(space instanceof Jail) {
-	//If your just visiting
-	if(p.getJail()==false) {
-		System.out.println("Just visiting!");
-	}else {
-		System.out.println("Oof.  Your in jail.  Pay $50 next turn, roll doubles, or use a get out of jail free card to escape.");
-	}
-}
 		//Properties
 		Scanner scn = new Scanner(System.in);
 		if (propList.get(p.getCurrentSpace()) instanceof Property) {
@@ -228,7 +219,7 @@ if(space instanceof Jail) {
 		int randomNum = randy.nextInt((6 - 1) + 1) + 1;
 		int randomNum2 = randy.nextInt((6 - 1) + 1) + 1;
 		return randomNum + randomNum2;
-
+//return 10;  //Testing purposes
 	}
 
 	public void gameLoop(int numPlayers) {
