@@ -1,5 +1,5 @@
 
-public abstract class Space {
+public class Space {
 
 	String name;
 	
