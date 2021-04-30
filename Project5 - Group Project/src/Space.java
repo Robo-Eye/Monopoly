@@ -14,7 +14,13 @@ public abstract class Space {
 	protected abstract int getRent();
 
 	protected abstract String getName();
-		
+	
+	protected abstract void setMorg(boolean b);
+	
+	protected abstract boolean getIsMorg();
+	
+	protected abstract int getMorgage();
+
 	
 
 }

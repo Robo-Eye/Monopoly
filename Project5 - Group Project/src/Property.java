@@ -36,7 +36,7 @@ public abstract class Property extends Space{
 	}
 //Getter for morgage
 	public int getMorgage() {
-		return morgage;
+		return this.morgage;
 	}
 	//Getter for name
 	public String getName() {

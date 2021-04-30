@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,6 +10,7 @@ public class Board {
 	public int numPlayers;
 	ArrayList<Space> propList = new ArrayList<Space>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
+	HashMap<Integer, Integer> optionList = new HashMap<Integer, Integer>();
 
 	public final int NUM_SPACES;
 	int playerTurn;
@@ -78,12 +80,36 @@ public class Board {
 					System.out.println(((Player) propList.get(p.getCurrentSpace()).getOwner()).getMoney());
 
 				}
+				else {
+					while ((p.getMoney() < rent) && (isitMorgaged(p)) == true) {
+						int count = 0;
+						for (int i = 0; i < propList.size(); i++) {
+							if (propList.get(i).getOwner() == p && propList.get(i).getIsMorg() == false) {
+								count++;
+								optionList.put(count, i);
+							}
+						}
+
+						for (int j = 0; j < optionList.size(); j++) {
+							
+							System.out.println(j + ". " + propList.get(optionList.get(j)).getName() + " has a mortgage value of $" + propList.get(optionList.get(j)).getMorgage());
+						}
+						
+						System.out.println("Enter the number of the property you would like to mortgage: ");
+						int choice = scn.nextInt();
+						p.addMoney(propList.get(optionList.get(choice)).getMorgage());
+						optionList.remove(choice);
+					}
+					
+					if (p.getMoney() < rent) {
+						//bankruptcy steps
+					}
+					
 				// write method if players do not have money to pay the rent
 
-				else if ((p.getMoney()) >= (propList.get(p.getCurrentSpace()).getRent())) {
 
-					p.deductMoney((propList.get(p.getCurrentSpace())).getRent());
 				}
+
 
 			}
 		}
@@ -114,6 +140,22 @@ public class Board {
 		boolean w = false;
 		while (!w) {
 
+		}
+	}
+	public boolean isitMorgaged(Player p) {
+		boolean propToMorgage = false;
+		for (int i = 0; i < propList.size(); i++) {
+			Space pr = propList.get(i);
+			if (pr.getIsMorg() == false && p == propList.get(i).getOwner()) {
+				propToMorgage = true;
+				break;
+			}
+		}
+		if (propToMorgage == true) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 
