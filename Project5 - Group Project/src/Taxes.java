@@ -6,6 +6,9 @@ public Taxes(String name, int tax) {
 	this.name=name;
 	this.tax=tax;
 }
+public int getTaxes() {
+	return tax;
+}
 
 @Override
 public Object getOwner() {

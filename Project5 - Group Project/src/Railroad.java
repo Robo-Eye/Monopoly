@@ -14,7 +14,12 @@ public Railroad() {
 @Override
 	public int getRent() {
 		// TODO Auto-generated method stub
-		return this.rent;
+		return 25;
 	}
+@Override
+protected int getTaxes() {
+	// TODO Auto-generated method stub
+	return 0;
+}
 
 }
