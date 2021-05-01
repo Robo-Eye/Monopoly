@@ -46,7 +46,7 @@ public class Main {
 			}
 			}
 		}
-		System.out.println("Game over.  " + b.playerList.get(0) + " wins.");
+		System.out.println("Game over.  " + b.playerList.get(0).getPlayerName() + " wins.");
 
 		
 	
@@ -86,13 +86,13 @@ public class Main {
 		Railroad Shortline=new Railroad("Short Line Railroad", 200, 100);
 		
 		//Community Chest
-		ComChest comChest1=new ComChest();
-		ComChest comChest2=new ComChest();
-		ComChest comChest3=new ComChest();
+		ComChest comChest1=new ComChest(50);
+		ComChest comChest2=new ComChest(100);
+		ComChest comChest3=new ComChest(-50);
 		//Chance
-		Chance chance1=new Chance();
-		Chance chance2=new Chance();
-		Chance chance3=new Chance();
+		Chance chance1=new Chance(-50);
+		Chance chance2=new Chance(100);
+		Chance chance3=new Chance(50);
 		//Utilities
 		Utility Waterworks=new Utility("Water Works", 150, 75);
 		Utility Electric=new Utility("Electric Company", 150, 75);

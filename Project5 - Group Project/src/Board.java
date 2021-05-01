@@ -70,6 +70,9 @@ public class Board {
 			if (pr.getOwner() == p) {
 				System.out.println("You already own this property.  No rent today!");
 			}
+			else if (pr.getIsMorg()) {
+				System.out.println("This property is mortgaged.  You pay nothing!");
+			}
 			if (pr.getOwner() == null) {
 				if (p.getMoney() >= pr.getCost()) {
 					System.out.println("Do you want to buy " + pr.getName() + " for $"
@@ -94,7 +97,7 @@ public class Board {
 					System.out.println("You cannot buy this property because you don't have enough money.");
 
 				}
-			} else {
+			} else if (pr.getIsMorg() == false){
 				if (p != pr.getOwner()) {
 					int rent = pr.getRent();
 					if (pr instanceof Railroad) {
@@ -115,54 +118,22 @@ public class Board {
 
 					}
 					System.out.println("Property owned by " + (pr.getOwner()).getPlayerName() + ": rent is " + rent);
-					if ((p.getMoney()) >= rent) {
+					if (p.getMoney() < rent) {
+						while ((p.getMoney() < rent) && isitMorgaged(p)) {
+							needToMortgage(p);
+						}
+						if (p.getMoney() < rent) {
+							Bankrupt(p);
+						}
+					}
+					if (p.isBankrupt() == false) {
 						p.deductMoney(rent);
 						((Player) pr.getOwner()).addMoney(rent);
 						System.out.println(p.getPlayerName() + "'s balance: $" + p.getMoney());
 						System.out.println(
 								pr.getOwner().getPlayerName() + "'s balance: $" + ((Player) pr.getOwner()).getMoney());
-
-					} else {
-						while ((p.getMoney() < rent) && isitMorgaged(p)) {
-							optionList = new ArrayList<>();
-							for (int i = 0; i < propList.size(); i++) {
-								if (propList.get(i) instanceof Property) {
-									Property prop = (Property) propList.get(i);
-									if (prop.getOwner() == p && prop.getIsMorg() == false) {
-										optionList.add(i);
-									}
-								}
-							}
-							for (int j = 0; j < optionList.size(); j++) {
-								if (propList.get(optionList.get(j)) instanceof Property) {
-									Property pr1 = (Property) propList.get(optionList.get(j));
-									System.out.println(j + 1 + ". " + pr1.getName() + " has a mortgage value of $"
-											+ pr1.getMorgage() + ".");
-								}
-							}
-
-							System.out.println("Enter the number of the property you would like to mortgage: ");
-							int choice = scn.nextInt();
-							Property pr2 = (Property) propList.get(optionList.get(choice - 1));
-							p.addMoney((pr2).getMorgage());
-							pr2.setMorg(true);
-							optionList.remove(choice - 1);
-
-						}
-
-						if (p.getMoney() < rent) { // player is bankrupt
-							for (int k = 0; k < propList.size(); k++) {
-								Property pr3 = (Property) propList.get(k);
-								if (p == pr3.getOwner()) {
-									pr3.changeOwner(pr.getOwner());
-								}
-							}
-							int bankruptmoney = p.getMoney();
-							p.deductMoney(p.getMoney());
-							pr.getOwner().addMoney(bankruptmoney);
-							playerList.remove(p);
-						}
 					}
+
 				}
 
 			}
@@ -170,9 +141,23 @@ public class Board {
 
 		// Taxes
 		if (propList.get(p.getCurrentSpace()) instanceof Taxes) {
-			System.out.println("Uh oh! You landed on " + space.getName() + ".  You owe $" + ((Taxes) space).getTaxes());
-			p.deductMoney(((Taxes) space).getTaxes());
-			System.out.println("Current balance: $" + p.getMoney());
+			int tax = ((Taxes) space).getTaxes();
+			System.out.println("Uh oh! You landed on " + space.getName() + ".  You owe $" + tax);
+			if ((p.getMoney()) >= tax) {
+
+			} else {
+				while ((p.getMoney() < tax) && isitMorgaged(p)) {
+					needToMortgage(p);
+				}
+				if (p.getMoney() < tax) {
+					Bankrupt(p);
+				}
+
+			}
+			if (p.isBankrupt() == false) {
+				p.deductMoney(((Taxes) space).getTaxes());
+				System.out.println("Current balance: $" + p.getMoney());
+			}
 		}
 
 		// Free parking
@@ -182,11 +167,43 @@ public class Board {
 		// Chance
 		if (space instanceof Chance) {
 			System.out.println("You got chance!  More code to follow");
+			int chance = ((Chance) space).getTransaction();
+			if ((p.getMoney()) >= chance) {
+
+			} else {
+				while ((p.getMoney() < chance) && isitMorgaged(p)) {
+					needToMortgage(p);
+				}
+				if (p.getMoney() < chance) {
+					Bankrupt(p);
+				}
+
+			}
+			if (p.isBankrupt() == false) {
+				p.deductMoney(((Chance) space).getTransaction());
+				System.out.println("Current balance: $" + p.getMoney());
+			}
 		}
 
 		// Commnity chest
 		if (space instanceof ComChest) {
 			System.out.println("You got a chest card!  MOre to follow");
+			int comChest = ((ComChest) space).getTransaction();
+			if ((p.getMoney()) >= comChest) {
+
+			} else {
+				while ((p.getMoney() < comChest) && isitMorgaged(p)) {
+					needToMortgage(p);
+				}
+				if (p.getMoney() < comChest) {
+					Bankrupt(p);
+				}
+
+			}
+			if (p.isBankrupt() == false) {
+				p.deductMoney(((ComChest) space).getTransaction());
+				System.out.println("Current balance: $" + p.getMoney());
+			}
 		}
 
 		// Switching turns
@@ -234,6 +251,78 @@ public class Board {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public void needToMortgage(Player p) {
+		Scanner scnr = new Scanner(System.in);
+		optionList = new ArrayList<>();
+		for (int i = 0; i < propList.size(); i++) {
+			if (propList.get(i) instanceof Property) {
+				Property prop = (Property) propList.get(i);
+				if (prop.getOwner() == p && prop.getIsMorg() == false) {
+					optionList.add(i);
+				}
+			}
+		}
+		for (int j = 0; j < optionList.size(); j++) {
+			if (propList.get(optionList.get(j)) instanceof Property) {
+				Property pr1 = (Property) propList.get(optionList.get(j));
+				System.out.println(j + 1 + ". " + pr1.getName() + " has a mortgage value of $"
+						+ pr1.getMorgage() + ".");
+			}
+		}
+
+		System.out.println("Enter the number of the property you would like to mortgage: ");
+		int choice = scnr.nextInt();
+		Property pr2 = (Property) propList.get(optionList.get(choice - 1));
+		p.addMoney((pr2).getMorgage());
+		pr2.setMorg(true);
+		optionList.remove(choice - 1);
+
+
+	}
+	
+	public void Bankrupt(Player p) {
+		int bankruptmoney = p.getMoney();
+		p.deductMoney(p.getMoney());
+		Space s = propList.get(p.getCurrentSpace());
+		int moneyToPay = 0;
+		if (s instanceof Property) {
+			moneyToPay = ((Property) s).getRent();
+		}
+		if (s instanceof Taxes) {
+			moneyToPay = ((Taxes) s).getTaxes();
+		}
+		if (s instanceof Chance) {
+			moneyToPay = ((Chance) s).getTransaction();
+		}
+		if (s instanceof ComChest) {
+			moneyToPay = ((ComChest) s).getTransaction();
+		}
+		if (p.getMoney() < moneyToPay) { // player is bankrupt
+			if (propList.get(p.getCurrentSpace()) instanceof Property) {
+				Property pr4 = (Property) propList.get(p.getCurrentSpace());
+				for (int k = 0; k < propList.size(); k++) {
+					if (propList.get(k) instanceof Property) {
+						Property pr3 = (Property) propList.get(k);
+						pr3.changeOwner(pr4.getOwner());
+						pr4.getOwner().addMoney(bankruptmoney);
+					}
+				}
+			}
+			else {
+				for (int k = 0; k < propList.size(); k++) {
+					if (propList.get(k) instanceof Property) {
+						Property pr5 = ((Property) propList.get(k));
+						pr5.changeOwner(null);
+					}
+				}
+			}
+
+
+			p.setBankrupt(true);
+			playerList.remove(p);
 		}
 	}
 

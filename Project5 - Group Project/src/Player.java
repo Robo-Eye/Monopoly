@@ -5,6 +5,7 @@ public class Player {
 	private int currSpace;
 	private int railCount;
 	private int utilCount;
+	private boolean bankrupt;
 private boolean inJail;
 	public Player(String name) {
 		playerName = name;
@@ -13,6 +14,7 @@ private boolean inJail;
 		railCount = 0;
 		utilCount = 0;
 		inJail=false;
+		bankrupt = false;
 		
 	}
 
@@ -68,5 +70,15 @@ public void goJail() {
 	public Boolean getJail() {
 		return this.inJail;
 	}
+
+	public boolean isBankrupt() {
+		return bankrupt;
+	}
+
+	public void setBankrupt(boolean bankrupt) {
+		this.bankrupt = bankrupt;
+	}
+	
+	
 
 }
