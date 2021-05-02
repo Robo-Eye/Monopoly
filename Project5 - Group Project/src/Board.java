@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,6 +9,8 @@ import java.util.Scanner;
 //Pulls is working, is the push working?
 public class Board {
 	public int numPlayers;
+	Queue<Integer>Chance=new PriorityQueue<Integer>();
+	Queue<Integer>Community=new PriorityQueue<Integer>();
 	ArrayList<Space> propList = new ArrayList<Space>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
 	ArrayList<Integer> optionList = new ArrayList<Integer>();
@@ -37,6 +41,160 @@ public class Board {
 
 		Space space = propList.get(p.getCurrentSpace());
 
+		
+		
+		// Chance
+				if (space instanceof Chance) {
+					if(Chance.poll()==1) {
+						System.out.println("Advance to Go, collect $200");
+						p.changeCurrentSpace(0);
+						//System.out.println("Current balance: $"+ p.getMoney());
+						Chance.add(1);
+					}
+					if(Chance.poll()==2) {
+						System.out.println("Bank error!  You get $50");
+						p.addMoney(50);
+						System.out.println("Current balance: $"+ p.getMoney());
+						Chance.add(2);
+					}
+					if(Chance.poll()==3) {
+						System.out.println("Poor mans tax!  Pay $15");
+						p.deductMoney(15);
+						System.out.println("Current balance: $"+ p.getMoney());
+						Chance.add(3);
+					}
+					if(Chance.poll()==4) {
+						System.out.println("Your building loan has matured!  You get $150");
+						p.addMoney(150);
+						System.out.println("Current balance: $"+ p.getMoney());
+						Chance.add(4);
+					}
+					if(Chance.poll()==5) {
+						System.out.println("Go to St Charles Place!");
+						p.changeCurrentSpace(11);
+						Chance.add(5);
+					}
+					if(Chance.poll()==6) {
+						System.out.println("Go to Illinois ave!");
+						p.changeCurrentSpace(24);
+						Chance.add(6);
+					}
+					if(Chance.poll()==7) {
+						System.out.println("Go back three spaces!");
+						p.changeCurrentSpace(p.getCurrentSpace()-3);
+						Chance.add(7);
+					}
+					if(Chance.poll()==8) {
+						System.out.println("Go to jail! Go directly to jail.  Dont pass go, dont collect $200");
+						p.goJail();
+						p.setJail(true);
+						Chance.add(8);
+					}
+					if(Chance.poll()==9) {
+						System.out.println("You got a get out of jail free card!");
+						p.addJailFree();
+						Chance.add(9);
+					}
+					if(Chance.poll()==10) {
+						System.out.println("Go to reading railroad");
+						p.changeCurrentSpace(5);
+						Chance.add(10);
+					}
+					int chance = ((Chance) space).getTransaction();
+					if ((p.getMoney()) >= chance) {
+
+					} else {
+						while ((p.getMoney() < chance) && isitMorgaged(p)) {
+							needToMortgage(p);
+						}
+						if (p.getMoney() < chance) {
+							Bankrupt(p);
+						}
+
+					}
+					if (p.isBankrupt() == false) {
+						p.deductMoney(((Chance) space).getTransaction());
+						System.out.println("Current balance: $" + p.getMoney());
+					}
+				}
+				// Commnity chest
+				if (space instanceof ComChest) {
+					if(Community.poll()==1) {
+						System.out.println("You got an inheritance!  Collect $100");
+						p.addMoney(100);
+						System.out.println("Current balance: $"+p.getMoney());
+						Community.add(1);
+					}
+					if(Community.poll()==2) {
+						System.out.println("You got 2nd in a beauty contest!  Collect $20");
+						p.addMoney(20);
+						System.out.println("Current balance: $"+p.getMoney());
+						Community.add(2);
+					}
+					if(Community.poll()==3) {
+						System.out.println("Receive $25 consultancy fee");
+						p.deductMoney(25);
+						System.out.println("Current balance: $"+p.getMoney());
+						Community.add(3);
+					}
+					if(Community.poll()==4) {
+						System.out.println("School fees pay $50");
+						p.deductMoney(50);
+						System.out.println("Current balance: $"+p.getMoney());
+						Community.add(4);
+					}
+					if(Community.poll()==5) {
+						System.out.println("Hospital fees pay $50");
+						p.deductMoney(50);
+						System.out.println("Current balance: $"+p.getMoney());
+						Community.add(5);
+					}
+					if(Community.poll()==6) {
+						System.out.println("Your life insurance matured. Collect $100");
+						p.addMoney(100);
+						System.out.println("Current balance: $"+p.getMoney());
+						Community.add(6);
+					}
+					if(Community.poll()==7) {
+						System.out.println("Income tax refund.  Collect $20");
+						p.addMoney(20);
+						System.out.println("Current balance: $"+p.getMoney());
+						Community.add(7);
+					}
+					if(Community.poll()==8) {
+						System.out.println("Christmas bonus collect $100");
+						p.addMoney(100);
+						System.out.println("Current balance: $"+p.getMoney());
+						Community.add(8);
+					}
+					if(Community.poll()==9) {
+						System.out.println("Move to Go! Collect $200");
+						p.changeCurrentSpace(0);
+					Community.add(9);
+					}
+					if(Community.poll()==10) {
+						System.out.println("Go to jail.  Do not pass go or collect $200");
+						p.goJail();
+						p.setJail(true);
+					}
+					
+					int comChest = ((ComChest) space).getTransaction();
+					if ((p.getMoney()) >= comChest) {
+
+					} else {
+						while ((p.getMoney() < comChest) && isitMorgaged(p)) {
+							needToMortgage(p);
+						}
+						if (p.getMoney() < comChest) {
+							Bankrupt(p);
+						}
+
+					}
+					if (p.isBankrupt() == false) {
+						p.deductMoney(((ComChest) space).getTransaction());
+						System.out.println("Current balance: $" + p.getMoney());
+					}
+				}
 		// Go
 		if (startPoint > 0 && p.getCurrentSpace() < startPoint && p.getJail() == false) {
 			System.out.println("You passed Go!  You collect $200");
@@ -164,47 +322,8 @@ public class Board {
 		if (space instanceof FreeParking) {
 			System.out.println("Its your lucky day!  Free parking!");
 		}
-		// Chance
-		if (space instanceof Chance) {
-			System.out.println("You got chance!  More code to follow");
-			int chance = ((Chance) space).getTransaction();
-			if ((p.getMoney()) >= chance) {
-
-			} else {
-				while ((p.getMoney() < chance) && isitMorgaged(p)) {
-					needToMortgage(p);
-				}
-				if (p.getMoney() < chance) {
-					Bankrupt(p);
-				}
-
-			}
-			if (p.isBankrupt() == false) {
-				p.deductMoney(((Chance) space).getTransaction());
-				System.out.println("Current balance: $" + p.getMoney());
-			}
-		}
-
-		// Commnity chest
-		if (space instanceof ComChest) {
-			System.out.println("You got a chest card!  MOre to follow");
-			int comChest = ((ComChest) space).getTransaction();
-			if ((p.getMoney()) >= comChest) {
-
-			} else {
-				while ((p.getMoney() < comChest) && isitMorgaged(p)) {
-					needToMortgage(p);
-				}
-				if (p.getMoney() < comChest) {
-					Bankrupt(p);
-				}
-
-			}
-			if (p.isBankrupt() == false) {
-				p.deductMoney(((ComChest) space).getTransaction());
-				System.out.println("Current balance: $" + p.getMoney());
-			}
-		}
+		
+		
 
 		// Switching turns
 		if (playerTurn == numPlayers) {

@@ -7,6 +7,7 @@ public class Player {
 	private int utilCount;
 	private boolean bankrupt;
 private boolean inJail;
+private int jailFree;
 	public Player(String name) {
 		playerName = name;
 		currBal = 1500;
@@ -15,6 +16,7 @@ private boolean inJail;
 		utilCount = 0;
 		inJail=false;
 		bankrupt = false;
+		jailFree=0;
 		
 	}
 
@@ -60,6 +62,7 @@ private boolean inJail;
 public void goJail() {
 	currSpace=10;
 }
+
 	public int getCurrentSpace() {
 
 		return currSpace;
@@ -78,7 +81,14 @@ public void goJail() {
 	public void setBankrupt(boolean bankrupt) {
 		this.bankrupt = bankrupt;
 	}
-	
-	
+	public int getJailFree() {
+		return jailFree;
+	}
+	public void addJailFree() {
+		jailFree++;
+	}
+	public void subtractJailFree() {
+		jailFree--;
+	}
 
 }

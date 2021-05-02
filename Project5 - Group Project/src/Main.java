@@ -20,6 +20,8 @@ public class Main {
 		//Add in players
 		addPlayer(b);
 	
+		//Puts in cards
+		addCards(b);
 		//Calls all properties
 		AddProp(b);
 		//Gameloop
@@ -52,6 +54,31 @@ public class Main {
 	
 	}
 
+	  
+	public static void addCards(Board b) {
+		
+		Random rand = new Random();
+        int a[]= {1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+        for (int i = 0; i < 10; i++)
+        {
+            // Random for remaining positions.
+            int r = i + rand.nextInt(10 - i);
+              
+             //swapping the elements
+             int temp = a[r];
+             a[r] = a[i];
+             a[i] = temp;
+               
+        }
+    for(int i=0; i<10; i++) {
+    	b.Chance.add(a[i]);
+    	b.Community.add(a[i]);
+    }
+		
+		
+	//	System.out.println(b.Chance);
+      //  System.out.println(b.Community);
+	}
 	public static  void AddProp(Board b) {
 		
 		
