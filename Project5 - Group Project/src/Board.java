@@ -9,8 +9,8 @@ import java.util.Scanner;
 //Pulls is working, is the push working?
 public class Board {
 	public int numPlayers;
-	Queue<Integer>Chance=new PriorityQueue<Integer>();
-	Queue<Integer>Community=new PriorityQueue<Integer>();
+	ArrayList<Integer>Chance=new ArrayList<Integer>();
+	ArrayList<Integer>Community=new ArrayList<Integer>();
 	ArrayList<Space> propList = new ArrayList<Space>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
 	ArrayList<Integer> optionList = new ArrayList<Integer>();
@@ -45,60 +45,77 @@ public class Board {
 		
 		// Chance
 				if (space instanceof Chance) {
-					if(Chance.poll()==1) {
+					int chanceCard=Chance.get(0);
+					if(chanceCard==1) {
+						Chance.remove(0);
 						System.out.println("Advance to Go, collect $200");
+						p.addMoney(200);
+						System.out.println("Current Balance: $"+p.getMoney());
 						p.changeCurrentSpace(0);
 						//System.out.println("Current balance: $"+ p.getMoney());
-						Chance.add(1);
+						Chance.add(9, 1);
 					}
-					if(Chance.poll()==2) {
+					if(chanceCard==2) {
+						Chance.remove(0);
 						System.out.println("Bank error!  You get $50");
 						p.addMoney(50);
 						System.out.println("Current balance: $"+ p.getMoney());
-						Chance.add(2);
+						Chance.add(9,2);
 					}
-					if(Chance.poll()==3) {
+					if(chanceCard==3) {
+						Chance.remove(0);
 						System.out.println("Poor mans tax!  Pay $15");
 						p.deductMoney(15);
 						System.out.println("Current balance: $"+ p.getMoney());
-						Chance.add(3);
+						Chance.add(9,3);
 					}
-					if(Chance.poll()==4) {
+					if(chanceCard==4) {						
+						Chance.remove(0);
 						System.out.println("Your building loan has matured!  You get $150");
 						p.addMoney(150);
 						System.out.println("Current balance: $"+ p.getMoney());
-						Chance.add(4);
+						Chance.add(9,4);
 					}
-					if(Chance.poll()==5) {
+					if(chanceCard==5) {
+						Chance.remove(0);
 						System.out.println("Go to St Charles Place!");
 						p.changeCurrentSpace(11);
-						Chance.add(5);
+						Chance.add(9,5);
 					}
-					if(Chance.poll()==6) {
+					if(chanceCard==6) {
+						Chance.remove(0);
 						System.out.println("Go to Illinois ave!");
 						p.changeCurrentSpace(24);
-						Chance.add(6);
+						Chance.add(9,6);
 					}
-					if(Chance.poll()==7) {
+					if(chanceCard==7) {
+						Chance.remove(0);
+
 						System.out.println("Go back three spaces!");
 						p.changeCurrentSpace(p.getCurrentSpace()-3);
-						Chance.add(7);
+						Chance.add(9,7);
 					}
-					if(Chance.poll()==8) {
+					if(chanceCard==8) {
+						Chance.remove(0);
+
 						System.out.println("Go to jail! Go directly to jail.  Dont pass go, dont collect $200");
 						p.goJail();
 						p.setJail(true);
-						Chance.add(8);
+						Chance.add(9,8);
 					}
-					if(Chance.poll()==9) {
+					if(chanceCard==9) {
+						Chance.remove(0);
+
 						System.out.println("You got a get out of jail free card!");
 						p.addJailFree();
-						Chance.add(9);
+						Chance.add(9,9);
 					}
-					if(Chance.poll()==10) {
+					if(chanceCard==10) {
+						Chance.remove(0);
+
 						System.out.println("Go to reading railroad");
 						p.changeCurrentSpace(5);
-						Chance.add(10);
+						Chance.add(9,10);
 					}
 					int chance = ((Chance) space).getTransaction();
 					if ((p.getMoney()) >= chance) {
@@ -112,70 +129,76 @@ public class Board {
 						}
 
 					}
-					if (p.isBankrupt() == false) {
-						p.deductMoney(((Chance) space).getTransaction());
-						System.out.println("Current balance: $" + p.getMoney());
-					}
+//					if (p.isBankrupt() == false) {
+//						p.deductMoney(((Chance) space).getTransaction());
+//						System.out.println("Current balance: $" + p.getMoney());
+//					}
 				}
 				// Commnity chest
 				if (space instanceof ComChest) {
-					if(Community.poll()==1) {
+					int commCard=Community.get(0);
+					Community.remove(0);
+
+					if(commCard==1) {
 						System.out.println("You got an inheritance!  Collect $100");
 						p.addMoney(100);
 						System.out.println("Current balance: $"+p.getMoney());
-						Community.add(1);
+						Community.add(9,1);
 					}
-					if(Community.poll()==2) {
+					if(commCard==2) {
 						System.out.println("You got 2nd in a beauty contest!  Collect $20");
 						p.addMoney(20);
 						System.out.println("Current balance: $"+p.getMoney());
-						Community.add(2);
+						Community.add(9,2);
 					}
-					if(Community.poll()==3) {
+					if(commCard==3) {
 						System.out.println("Receive $25 consultancy fee");
 						p.deductMoney(25);
 						System.out.println("Current balance: $"+p.getMoney());
-						Community.add(3);
+						Community.add(9,3);
 					}
-					if(Community.poll()==4) {
+					if(commCard==4) {
 						System.out.println("School fees pay $50");
 						p.deductMoney(50);
 						System.out.println("Current balance: $"+p.getMoney());
-						Community.add(4);
+						Community.add(9,4);
 					}
-					if(Community.poll()==5) {
+					if(commCard==5) {
 						System.out.println("Hospital fees pay $50");
 						p.deductMoney(50);
 						System.out.println("Current balance: $"+p.getMoney());
-						Community.add(5);
+						Community.add(9,5);
 					}
-					if(Community.poll()==6) {
+					if(commCard==6) {
 						System.out.println("Your life insurance matured. Collect $100");
 						p.addMoney(100);
 						System.out.println("Current balance: $"+p.getMoney());
-						Community.add(6);
+						Community.add(9,6);
 					}
-					if(Community.poll()==7) {
+					if(commCard==7) {
 						System.out.println("Income tax refund.  Collect $20");
 						p.addMoney(20);
 						System.out.println("Current balance: $"+p.getMoney());
-						Community.add(7);
+						Community.add(9,7);
 					}
-					if(Community.poll()==8) {
+					if(commCard==8) {
 						System.out.println("Christmas bonus collect $100");
 						p.addMoney(100);
 						System.out.println("Current balance: $"+p.getMoney());
-						Community.add(8);
+						Community.add(9,8);
 					}
-					if(Community.poll()==9) {
+					if(commCard==9) {
 						System.out.println("Move to Go! Collect $200");
 						p.changeCurrentSpace(0);
-					Community.add(9);
+						p.addMoney(200);
+					System.out.println("Current balance: $"+p.getMoney());
+					Community.add(9,9);
 					}
-					if(Community.poll()==10) {
+					if(commCard==10) {
 						System.out.println("Go to jail.  Do not pass go or collect $200");
 						p.goJail();
 						p.setJail(true);
+						Community.add(9,10);
 					}
 					
 					int comChest = ((ComChest) space).getTransaction();
@@ -190,10 +213,10 @@ public class Board {
 						}
 
 					}
-					if (p.isBankrupt() == false) {
-						p.deductMoney(((ComChest) space).getTransaction());
-						System.out.println("Current balance: $" + p.getMoney());
-					}
+//					if (p.isBankrupt() == false) {
+//						p.deductMoney(((ComChest) space).getTransaction());
+//						System.out.println("Current balance: $" + p.getMoney());
+//					}
 				}
 		// Go
 		if (startPoint > 0 && p.getCurrentSpace() < startPoint && p.getJail() == false) {
@@ -206,10 +229,7 @@ public class Board {
 			// If your just visiting
 			if (p.getJail() == false) {
 				System.out.println("Just visiting!");
-			} else {
-				System.out.println(
-						"Oof.  Your in jail.  Pay $50 next turn, roll doubles, or use a get out of jail free card to escape.");
-			}
+			} 
 		}
 
 //Go to jail
