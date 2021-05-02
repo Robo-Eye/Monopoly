@@ -24,7 +24,9 @@ private int jailFree;
 		return railCount;
 	}
 
-
+public void subJailFree() {
+	jailFree--;
+}
 	public void setRailCount(int railCount) {
 		this.railCount = railCount;
 	}

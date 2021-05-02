@@ -30,18 +30,55 @@ public class Board {
 
 	public void move(Player p) {
 		int startPoint = p.getCurrentSpace();
-		int movement = rollDice();
+		int die1=rollDice();
+		int die2=rollDice();
+		int movement = die1+die2;
 
-		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + movement + " and have a balance of $"
+		Boolean doubles=false;
+		if(die1==die2) {
+			doubles=true;
+		}
+		
+		
+		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + die1+" and a "+die2+" giving them a total move of " +movement+ " and have a balance of $"
 				+ p.getMoney());
+if(doubles) {
+//	System.out.println("You rolled doubles so you get to go again!");
+}
+if(p.getJail()) {
+	Scanner stan=new Scanner(System.in);
+	if(p.getJailFree()>0) {
+		System.out.println("Type 1 to use your get out of jail free card, or type 2 to pay the $50, type 3 to try to roll doubles");
+		int ans=stan.nextInt();
+	if(ans==1) {
+		System.out.println("Congrats! You are out of jail.");
+		p.setJail(false);
+	}
+	if(ans==2) {
+		System.out.println("Congrats!  Your out of jail.");
+		p.deductMoney(50);
+		System.out.println("Current balance: $"+p.getMoney());
+		p.setJail(false);
+	}
+	if(ans==3) {
+		if(doubles) {
+		System.out.println("Nice work!  You rolled doubles so you are out of jail.");
+		p.setJail(false);
+		}else {
+			System.out.println("Sorry!  You didnt roll doubles.  Try again next turn.");
+		}
+	}
+	}
+}
 
+if(p.getJail()==false) {
 		p.changeCurrentSpace((movement));
 
 		System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
 
-		Space space = propList.get(p.getCurrentSpace());
+}
+Space space = propList.get(p.getCurrentSpace());
 
-		
 		
 		// Chance
 				if (space instanceof Chance) {
@@ -349,7 +386,9 @@ public class Board {
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;
 		} else {
+			//if(doubles==false) {
 			playerTurn++;
+			//}
 		}
 
 	}
@@ -363,9 +402,9 @@ public class Board {
 		Random randy = new Random();
 
 		int randomNum = randy.nextInt((6 - 1) + 1) + 1;
-		int randomNum2 = randy.nextInt((6 - 1) + 1) + 1;
-		return randomNum + randomNum2;
-//return 10;  //Testing purposes
+		//int randomNum2 = randy.nextInt((6 - 1) + 1) + 1;
+		return randomNum;// + randomNum2;
+//return 5;  //Testing purposes
 	}
 
 	public void gameLoop(int numPlayers) {
