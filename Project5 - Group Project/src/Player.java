@@ -8,9 +8,11 @@ public class Player {
 	private boolean bankrupt;
 	private boolean rollDouble;
 	private int doubleCount;
+	private int jailRoll;
 private boolean inJail;
 private int jailFree;
 	public Player(String name) {
+		jailRoll=0;
 		doubleCount=0;
 		playerName = name;
 		currBal = 1500;
@@ -28,6 +30,15 @@ public int getDoubleCount() {
 }
 public void incDouble() {
 	doubleCount++;
+}
+public void incJailRoll() {
+	jailRoll++;
+}
+public int getJailRoll() {
+	return jailRoll;
+}
+public void resetJailRoll() {
+	jailRoll=0;
 }
 public void resetDouble() {
 	doubleCount=0;

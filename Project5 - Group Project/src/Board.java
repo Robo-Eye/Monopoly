@@ -54,7 +54,10 @@ if(p.getDoubleCount()==3) {
 
 if(p.getJail()&&skipJail==false) {
 	Scanner stan=new Scanner(System.in);
-	System.out.println(p.getPlayerName()+":\n"+"Type 1 to try to roll doubles to get out of jail");
+	System.out.println(p.getPlayerName()+":\n");
+	if(p.getJailRoll()<3) {
+	System.out.println("Type 1 to try to roll doubles to get out of jail.  You can only do this three times");
+	}
 	System.out.println("Type 2 to pay $50 to get out of jail");
 	if(p.getJailFree()>0) {
 		System.out.println("Type 3 to use your get out of jail free card");
@@ -64,18 +67,23 @@ if(p.getJail()&&skipJail==false) {
 		System.out.println("Congrats! You are out of jail.");
 		p.setJail(false);
 		p.subJailFree();
+		p.resetJailRoll();
 	}
 	if(ans==2) {
 		System.out.println("Congrats!  Your out of jail.");
 		p.deductMoney(50);
 		System.out.println("Current balance: $"+p.getMoney());
 		p.setJail(false);
+		p.resetJailRoll();
 	}
-	if(ans==1) {
+	if(ans==1&&p.getJailRoll()<3) {
+		
 		if(doubles) {
 		System.out.println("Nice work!  You rolled doubles so you are out of jail.");
 		p.setJail(false);
+		p.resetJailRoll();
 		}else {
+			p.incJailRoll();
 			System.out.println("Sorry!  You  rolled "+die1+" and "+die2+" not doubles.  Try again next turn.");
 		}
 	}
@@ -99,7 +107,7 @@ Space space = propList.get(p.getCurrentSpace());
 
 		
 		// Chance
-				if (space instanceof Chance) {
+				if (space instanceof Chance&&p.getJail()==false) {
 					int chanceCard=Chance.get(0);
 					if(chanceCard==1) {
 						Chance.remove(0);
@@ -190,7 +198,7 @@ Space space = propList.get(p.getCurrentSpace());
 //					}
 				}
 				// Commnity chest
-				if (space instanceof ComChest) {
+				if (space instanceof ComChest&&p.getJail()==false) {
 					int commCard=Community.get(0);
 					Community.remove(0);
 
@@ -288,7 +296,7 @@ Space space = propList.get(p.getCurrentSpace());
 		}
 
 //Go to jail
-		if (space instanceof GoToJail) {
+		if (space instanceof GoToJail&&p.getJail()==false) {
 			System.out.println("Go to jail! Go directly to jail.  Do not pass go, do not collect $200");
 			p.goJail();
 			p.setJail(true);
@@ -297,10 +305,10 @@ Space space = propList.get(p.getCurrentSpace());
 		//Properties
 		// Properties
 		Scanner scn = new Scanner(System.in);
-		if (space instanceof Property) {
+		if (space instanceof Property&&p.getJail()==false) {
 			Property pr = (Property) space;
 
-			if (pr.getOwner() == p&&skipJail==false) {
+			if (pr.getOwner() == p&&skipJail==false&&p.getJail()==false) {
 				System.out.println("You already own this property.  No rent today!");
 			}
 			else if (pr.getIsMorg()) {
@@ -331,7 +339,7 @@ Space space = propList.get(p.getCurrentSpace());
 
 				}
 			} else if (pr.getIsMorg() == false){
-				if (p != pr.getOwner()) {
+				if (p != pr.getOwner()&&p.getJail()==false) {
 					int rent = pr.getRent();
 					if (pr instanceof Railroad) {
 
@@ -373,7 +381,7 @@ Space space = propList.get(p.getCurrentSpace());
 		}
 
 		// Taxes
-		if (propList.get(p.getCurrentSpace()) instanceof Taxes) {
+		if (propList.get(p.getCurrentSpace()) instanceof Taxes&&p.getJail()==false) {
 			int tax = ((Taxes) space).getTaxes();
 			System.out.println("Uh oh! You landed on " + space.getName() + ".  You owe $" + tax);
 			if ((p.getMoney()) >= tax) {
@@ -394,7 +402,7 @@ Space space = propList.get(p.getCurrentSpace());
 		}
 
 		// Free parking
-		if (space instanceof FreeParking) {
+		if (space instanceof FreeParking&&p.getJail()==false) {
 			System.out.println("Its your lucky day!  Free parking!");
 		}
 		
@@ -420,7 +428,7 @@ Space space = propList.get(p.getCurrentSpace());
 		Random randy = new Random();
 
 		int randomNum = randy.nextInt((6 - 1) + 1) + 1;
-//return 3;  //Testing purposes
+//return 5;  //Testing purposes
 		return randomNum;
 	}
 
