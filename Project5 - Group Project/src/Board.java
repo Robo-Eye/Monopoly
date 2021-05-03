@@ -34,6 +34,7 @@ public class Board {
 		int die2=rollDice();
 		int movement = die1+die2;
 		Boolean doubles=false;
+		Boolean skipJail=false;
 		p.setDouble(false);
 		
 		if(die1==die2) {
@@ -45,12 +46,15 @@ if(p.getDoubleCount()==3) {
 	System.out.println("You rolled a "+die1+" and a "+die2+" which means you rolled doubles three times in a row, so you get a speeding ticket and go straight to jail, no Go or $200");
 	p.setJail(true);
 	p.changeCurrentSpace(0);
+	p.resetDouble();
 	p.setDouble(false);
+	skipJail=true;
+	
 }
 
-if(p.getJail()&&p.getDouble()==false) {
+if(p.getJail()&&skipJail==false) {
 	Scanner stan=new Scanner(System.in);
-	System.out.println("Type 1 to try to roll doubles to get out of jail");
+	System.out.println(p.getPlayerName()+":\n"+"Type 1 to try to roll doubles to get out of jail");
 	System.out.println("Type 2 to pay $50 to get out of jail");
 	if(p.getJailFree()>0) {
 		System.out.println("Type 3 to use your get out of jail free card");
@@ -78,7 +82,7 @@ if(p.getJail()&&p.getDouble()==false) {
 	
 }
 //Make sure this is after jail..we dont want people rolling 3 doubles than immediately getting out of jail
-p.resetDouble();
+
 
 if(p.getJail()==false) {
 	System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + die1+" and a "+die2+" giving them a total move of " +movement+ " and have a balance of $"
@@ -296,7 +300,7 @@ Space space = propList.get(p.getCurrentSpace());
 		if (space instanceof Property) {
 			Property pr = (Property) space;
 
-			if (pr.getOwner() == p) {
+			if (pr.getOwner() == p&&skipJail==false) {
 				System.out.println("You already own this property.  No rent today!");
 			}
 			else if (pr.getIsMorg()) {
@@ -416,9 +420,8 @@ Space space = propList.get(p.getCurrentSpace());
 		Random randy = new Random();
 
 		int randomNum = randy.nextInt((6 - 1) + 1) + 1;
-		//int randomNum2 = randy.nextInt((6 - 1) + 1) + 1;
-		//return randomNum;// + randomNum2;
-return 3;  //Testing purposes
+//return 3;  //Testing purposes
+		return randomNum;
 	}
 
 	public void gameLoop(int numPlayers) {
