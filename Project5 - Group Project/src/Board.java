@@ -33,26 +33,33 @@ public class Board {
 		int die1=rollDice();
 		int die2=rollDice();
 		int movement = die1+die2;
-
 		Boolean doubles=false;
+		p.setDouble(false);
+		
 		if(die1==die2) {
 			doubles=true;
+			p.setDouble(true);
+			p.incDouble();
 		}
-		
-		
-		System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + die1+" and a "+die2+" giving them a total move of " +movement+ " and have a balance of $"
-				+ p.getMoney());
-if(doubles) {
-//	System.out.println("You rolled doubles so you get to go again!");
+if(p.getDoubleCount()==3) {
+	System.out.println("You rolled a "+die1+" and a "+die2+" which means you rolled doubles three times in a row, so you get a speeding ticket and go straight to jail, no Go or $200");
+	p.setJail(true);
+	p.changeCurrentSpace(0);
+	p.setDouble(false);
 }
-if(p.getJail()) {
+
+if(p.getJail()&&p.getDouble()==false) {
 	Scanner stan=new Scanner(System.in);
+	System.out.println("Type 1 to try to roll doubles to get out of jail");
+	System.out.println("Type 2 to pay $50 to get out of jail");
 	if(p.getJailFree()>0) {
-		System.out.println("Type 1 to use your get out of jail free card, or type 2 to pay the $50, type 3 to try to roll doubles");
+		System.out.println("Type 3 to use your get out of jail free card");
+	}
 		int ans=stan.nextInt();
-	if(ans==1) {
+	if(ans==3) {
 		System.out.println("Congrats! You are out of jail.");
 		p.setJail(false);
+		p.subJailFree();
 	}
 	if(ans==2) {
 		System.out.println("Congrats!  Your out of jail.");
@@ -60,22 +67,29 @@ if(p.getJail()) {
 		System.out.println("Current balance: $"+p.getMoney());
 		p.setJail(false);
 	}
-	if(ans==3) {
+	if(ans==1) {
 		if(doubles) {
 		System.out.println("Nice work!  You rolled doubles so you are out of jail.");
 		p.setJail(false);
 		}else {
-			System.out.println("Sorry!  You didnt roll doubles.  Try again next turn.");
+			System.out.println("Sorry!  You  rolled "+die1+" and "+die2+" not doubles.  Try again next turn.");
 		}
 	}
-	}
+	
 }
+//Make sure this is after jail..we dont want people rolling 3 doubles than immediately getting out of jail
+p.resetDouble();
 
 if(p.getJail()==false) {
+	System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + die1+" and a "+die2+" giving them a total move of " +movement+ " and have a balance of $"
+			+ p.getMoney());
 		p.changeCurrentSpace((movement));
 
 		System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
 
+}
+if(p.getDouble()&&p.getDoubleCount()<3) {
+	System.out.println("You rolled doubles so you get to move again!");
 }
 Space space = propList.get(p.getCurrentSpace());
 
@@ -403,8 +417,8 @@ Space space = propList.get(p.getCurrentSpace());
 
 		int randomNum = randy.nextInt((6 - 1) + 1) + 1;
 		//int randomNum2 = randy.nextInt((6 - 1) + 1) + 1;
-		return randomNum;// + randomNum2;
-//return 5;  //Testing purposes
+		//return randomNum;// + randomNum2;
+return 3;  //Testing purposes
 	}
 
 	public void gameLoop(int numPlayers) {

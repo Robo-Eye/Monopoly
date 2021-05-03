@@ -6,9 +6,12 @@ public class Player {
 	private int railCount;
 	private int utilCount;
 	private boolean bankrupt;
+	private boolean rollDouble;
+	private int doubleCount;
 private boolean inJail;
 private int jailFree;
 	public Player(String name) {
+		doubleCount=0;
 		playerName = name;
 		currBal = 1500;
 		currSpace = 0;
@@ -17,9 +20,24 @@ private int jailFree;
 		inJail=false;
 		bankrupt = false;
 		jailFree=0;
+		rollDouble=false;
 		
 	}
-
+public int getDoubleCount() {
+	return doubleCount;
+}
+public void incDouble() {
+	doubleCount++;
+}
+public void resetDouble() {
+	doubleCount=0;
+}
+public Boolean getDouble() {
+	return rollDouble;
+}
+public void setDouble(boolean b) {
+	rollDouble=b;
+}
 	public int getRailCount() {
 		return railCount;
 	}
