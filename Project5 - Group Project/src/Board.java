@@ -375,7 +375,7 @@ public class Board {
 								pr.getOwner().getPlayerName() + "'s balance: $" + ((Player) pr.getOwner()).getMoney());
 					}
 
-				}
+				}//adding houses and hotels here
 
 			}
 		}
@@ -592,7 +592,7 @@ public class Board {
                   }
                 }
               }
-
+ 
 
               p.setBankrupt(true);
               playerList.remove(p);
