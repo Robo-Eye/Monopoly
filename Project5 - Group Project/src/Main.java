@@ -28,65 +28,65 @@ public class Main {
 		//game seems to stop after 4 properties are bought
 		while (b.playerList.size() > 1) {
 			b.move(b.playerList.get(0));
-			if(b.playerList.get(0).getDouble()) {
+			if(b.playerList.get(0).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(0));
 			}
-			if(b.playerList.get(0).getDouble()) {
+			if(b.playerList.get(0).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(0));
 			}
 			b.move(b.playerList.get(1));
-			if(b.playerList.get(1).getDouble()) {
+			if(b.playerList.get(1).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(1));
 			}
-			if(b.playerList.get(1).getDouble()) {
+			if(b.playerList.get(1).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(1));
 			}
 			if(b.numPlayers>2) {
 			b.move(b.playerList.get(2));
-			if(b.playerList.get(2).getDouble()) {
+			if(b.playerList.get(2).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(2));
 			}
-			if(b.playerList.get(2).getDouble()) {
+			if(b.playerList.get(2).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(2));
 			}
 			if(b.numPlayers>3) {
 				b.move(b.playerList.get(3));
-				if(b.playerList.get(3).getDouble()) {
+				if(b.playerList.get(3).getDouble()&&b.playerList.get(0).getJail()==false) {
 					b.move(b.playerList.get(3));
 				}
-				if(b.playerList.get(3).getDouble()) {
+				if(b.playerList.get(3).getDouble()&&b.playerList.get(0).getJail()==false) {
 					b.move(b.playerList.get(3));
 				}
 				if(b.numPlayers>4) {
 					b.move(b.playerList.get(4));
-					if(b.playerList.get(4).getDouble()) {
+					if(b.playerList.get(4).getDouble()&&b.playerList.get(0).getJail()==false) {
 						b.move(b.playerList.get(4));
 					}
-					if(b.playerList.get(4).getDouble()) {
+					if(b.playerList.get(4).getDouble()&&b.playerList.get(0).getJail()==false) {
 						b.move(b.playerList.get(4));
 					}
 					if(b.numPlayers>5) {
 						b.move(b.playerList.get(5));
-						if(b.playerList.get(5).getDouble()) {
+						if(b.playerList.get(5).getDouble()&&b.playerList.get(0).getJail()==false) {
 							b.move(b.playerList.get(5));
 						}
-						if(b.playerList.get(5).getDouble()) {
+						if(b.playerList.get(5).getDouble()&&b.playerList.get(0).getJail()==false) {
 							b.move(b.playerList.get(5));
 						}
 						if(b.numPlayers>6) {
 							b.move(b.playerList.get(6));
-							if(b.playerList.get(6).getDouble()) {
+							if(b.playerList.get(6).getDouble()&&b.playerList.get(0).getJail()==false) {
 								b.move(b.playerList.get(6));
 							}
-							if(b.playerList.get(6).getDouble()) {
+							if(b.playerList.get(6).getDouble()&&b.playerList.get(0).getJail()==false) {
 								b.move(b.playerList.get(6));
 							}
 							if(b.numPlayers>7) {
 								b.move(b.playerList.get(7));
-								if(b.playerList.get(7).getDouble()) {
+								if(b.playerList.get(7).getDouble()&&b.playerList.get(0).getJail()==false) {
 									b.move(b.playerList.get(7));
 								}
-								if(b.playerList.get(7).getDouble()) {
+								if(b.playerList.get(7).getDouble()&&b.playerList.get(0).getJail()==false) {
 									b.move(b.playerList.get(7));
 								}
 							}
