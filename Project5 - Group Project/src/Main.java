@@ -4,8 +4,7 @@
  * @author PLANKED20
  *
  */
-//See if this works...
-//Applying patch...
+
 
 import java.util.*;
 import java.io.*;
@@ -13,7 +12,6 @@ import java.io.*;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		
 		//Create board
 		Board b = new Board();
 		
@@ -23,70 +21,70 @@ public class Main {
 		//Puts in cards
 		addCards(b);
 		//Calls all properties
-		AddProp(b);
+		AddSpace(b);
+		
 		//Gameloop
-		//game seems to stop after 4 properties are bought
 		while (b.playerList.size() > 1) {
 			b.move(b.playerList.get(0));
-			if(b.playerList.get(0).getDouble()) {
+			if(b.playerList.get(0).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(0));
 			}
-			if(b.playerList.get(0).getDouble()) {
+			if(b.playerList.get(0).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(0));
 			}
 			b.move(b.playerList.get(1));
-			if(b.playerList.get(1).getDouble()) {
+			if(b.playerList.get(1).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(1));
 			}
-			if(b.playerList.get(1).getDouble()) {
+			if(b.playerList.get(1).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(1));
 			}
 			if(b.numPlayers>2) {
 			b.move(b.playerList.get(2));
-			if(b.playerList.get(2).getDouble()) {
+			if(b.playerList.get(2).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(2));
 			}
-			if(b.playerList.get(2).getDouble()) {
+			if(b.playerList.get(2).getDouble()&&b.playerList.get(0).getJail()==false) {
 				b.move(b.playerList.get(2));
 			}
 			if(b.numPlayers>3) {
 				b.move(b.playerList.get(3));
-				if(b.playerList.get(3).getDouble()) {
+				if(b.playerList.get(3).getDouble()&&b.playerList.get(0).getJail()==false) {
 					b.move(b.playerList.get(3));
 				}
-				if(b.playerList.get(3).getDouble()) {
+				if(b.playerList.get(3).getDouble()&&b.playerList.get(0).getJail()==false) {
 					b.move(b.playerList.get(3));
 				}
 				if(b.numPlayers>4) {
 					b.move(b.playerList.get(4));
-					if(b.playerList.get(4).getDouble()) {
+					if(b.playerList.get(4).getDouble()&&b.playerList.get(0).getJail()==false) {
 						b.move(b.playerList.get(4));
 					}
-					if(b.playerList.get(4).getDouble()) {
+					if(b.playerList.get(4).getDouble()&&b.playerList.get(0).getJail()==false) {
 						b.move(b.playerList.get(4));
 					}
 					if(b.numPlayers>5) {
 						b.move(b.playerList.get(5));
-						if(b.playerList.get(5).getDouble()) {
+						if(b.playerList.get(5).getDouble()&&b.playerList.get(0).getJail()==false) {
 							b.move(b.playerList.get(5));
 						}
-						if(b.playerList.get(5).getDouble()) {
+						if(b.playerList.get(5).getDouble()&&b.playerList.get(0).getJail()==false) {
 							b.move(b.playerList.get(5));
 						}
 						if(b.numPlayers>6) {
 							b.move(b.playerList.get(6));
-							if(b.playerList.get(6).getDouble()) {
+							if(b.playerList.get(6).getDouble()&&b.playerList.get(0).getJail()==false) {
 								b.move(b.playerList.get(6));
 							}
-							if(b.playerList.get(6).getDouble()) {
+							if(b.playerList.get(6).getDouble()&&b.playerList.get(0).getJail()==false) {
 								b.move(b.playerList.get(6));
 							}
 							if(b.numPlayers>7) {
 								b.move(b.playerList.get(7));
-								if(b.playerList.get(7).getDouble()) {
+								if(b.playerList.get(7).getDouble()&&b.playerList.get(0).getJail()==false) {
 									b.move(b.playerList.get(7));
 								}
-								if(b.playerList.get(7).getDouble()) {
+								if(b.playerList.get(7).getDouble()&&b.playerList.get(0).getJail()==false) {
 									b.move(b.playerList.get(7));
 								}
 							}
@@ -102,14 +100,17 @@ public class Main {
 	
 	}
 
-	  
+	  /**
+	   * Adding in the Chance and Community chest cards into the game
+	   * @param b
+	   */
 	public static void addCards(Board b) {
 		
 		Random rand = new Random();
         int a[]= {1, 2, 3, 4, 5, 6, 7, 8, 9,10};
         for (int i = 0; i < 10; i++)
         {
-            // Random for remaining positions.
+            // Random for remaining positions.  Not entirely random but it works ig
             int r = i + rand.nextInt(10 - i);
               
              //swapping the elements
@@ -124,11 +125,13 @@ public class Main {
     }
 		
 		
-	//	System.out.println(b.Chance);
-      //  System.out.println(b.Community);
 	}
-	public static  void AddProp(Board b) {
-		
+	/**
+	 * Adding all the spaces into the game
+	 * @param b
+	 */
+	public static  void AddSpace(Board b) {
+	
 		
 		//Regular properties
 		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2,50,10,30,90,160,250);
@@ -229,6 +232,10 @@ public class Main {
 		b.propList.add(luxury);
 		b.propList.add(Boadwalk);
 		}
+	/**
+	 * Adding players into the game
+	 * @param b
+	 */
 public static void addPlayer(Board b) {
 	Scanner scan=new Scanner(System.in);
 	System.out.println("Enter how many players are playing, from 2-8");
