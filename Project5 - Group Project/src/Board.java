@@ -5,15 +5,21 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
 
-//Board Test Comment.
-//Test comment to see if push is working
-//Pulls is working, is the push working?
+/**
+ * Contains the bulk of the code.  Checks what each player rolls, and what to do when they move.  Also handles jail time and the Chance/Community chest cards
+ * @author PLANKED20
+ *
+ */
 public class Board {
+	
 	public int numPlayers;
+	//Chance and community chest Queues
 	Queue<Integer> Chance = new LinkedList<Integer>();
 	Queue<Integer> Community = new LinkedList<Integer>();
+	//Property and plater arrayLists
 	ArrayList<Space> propList = new ArrayList<Space>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
+	//Morgage arrayLists
 	ArrayList<Integer> optionList = new ArrayList<Integer>();
 	ArrayList<Property> toUnMortgageList = new ArrayList<Property>();
 
@@ -40,7 +46,7 @@ public class Board {
 		Boolean doubles = false;
 		Boolean skipJail = false;
 		p.setDouble(false);
-
+//Checking for doubles
 		if(die1!=die2) {
 			doubles=false;
 			p.resetDouble();
@@ -50,6 +56,7 @@ public class Board {
 			p.setDouble(true);
 			p.incDouble();
 		}
+		//Doubles 3x=jail
 		if (p.getDoubleCount() == 3) {
 			System.out.println(p.getPlayerName()+", you rolled a " + die1 + " and a " + die2
 					+ " which means you rolled doubles three times in a row, so you get a speeding ticket and go straight to jail, no Go or $200");
@@ -60,7 +67,7 @@ public class Board {
 			skipJail = true;
 
 		}
-
+//Options for getting out of jail
 		if (p.getJail() && skipJail == false) {
 			Scanner stan = new Scanner(System.in);
 			System.out.println(p.getPlayerName() + ":\n");
@@ -102,7 +109,7 @@ public class Board {
 			}
 
 		}
-
+//Regular turn
 		if (p.getJail() == false) {
 			System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + die1 + " and a " + die2
 					+ " giving them a total move of " + movement + " and have a balance of $" + p.getMoney());
@@ -117,13 +124,11 @@ public class Board {
 		// Chance
 		if (space instanceof Chance && p.getJail() == false) {
 			int chanceCard = Chance.poll();
-			//Chance.remove(chanceCard);
 			if (chanceCard == 1) {
 				System.out.println("Advance to Go, collect $200");
 				p.addMoney(200);
 				System.out.println("Current Balance: $" + p.getMoney());
 				p.changeCurrentSpace(0);
-				// System.out.println("Current balance: $"+ p.getMoney());
 				Chance.add(1);
 			}
 			if (chanceCard == 2) {
@@ -191,16 +196,11 @@ public class Board {
 				}
 
 			}
-//          if (p.isBankrupt() == false) {
-//            p.deductMoney(((Chance) space).getTransaction());
-//            System.out.println("Current balance: $" + p.getMoney());
-//          }
+
 		}
 		// Commnity chest
 		if (space instanceof ComChest && p.getJail() == false) {
 			int commCard = Community.poll();
-			//Community.remove(commCard);
-		//	Community.remove(0);
 			if (commCard == 1) {
 				System.out.println("You got an inheritance!  Collect $100");
 				p.addMoney(100);
@@ -275,10 +275,7 @@ public class Board {
 				}
 
 			}
-//            if (p.isBankrupt() == false) {
-//              p.deductMoney(((ComChest) space).getTransaction());
-//              System.out.println("Current balance: $" + p.getMoney());
-//            }
+
 		}
 		// Go
 		if (startPoint > 0 && p.getCurrentSpace() < startPoint && p.getJail() == false) {
@@ -301,8 +298,7 @@ public class Board {
 			p.setJail(true);
 		}
 
-		// Properties
-		// Properties
+		// Landing on Properties
 		Scanner scn = new Scanner(System.in);
 		if (space instanceof Property && p.getJail() == false) {
 			Property pr = (Property) space;
@@ -339,13 +335,11 @@ public class Board {
 					int rent = pr.getRent();
 					if (pr instanceof Railroad) {
 
-						// Changed something here, the player in parentehses.
 						int n = ((Player) pr.getOwner()).getRailCount();
 						rent = (int) (rent * (Math.pow(2, n - 1)));
 
 					} else if (pr instanceof Utility) {
 
-						// Changed something here, rthe player in parentheses...
 						int n = ((Player) pr.getOwner()).getUtilCount();
 						if (n == 1) {
 							rent = 4 * movement;
@@ -488,11 +482,10 @@ public class Board {
 
 	}
 
-	/*
-
-	returns random
-	number between 2 and 12**@return*/
-
+/**
+ * Returns a random number between 1 and 6 to simulate die roll
+ * @return
+ */
 	public int rollDice() {
           Random randy = new Random();
 
@@ -507,7 +500,11 @@ public class Board {
 
           }
         }
-
+/**
+ * Method to call when player lands on property to check if its morgaged or not
+ * @param p
+ * @return
+ */
 	public boolean isitMorgaged(Player p) {
             boolean propToMorgage = false;
             for (int i = 0; i < propList.size(); i++) {
@@ -525,7 +522,10 @@ public class Board {
               return false;
             }
           }
-
+/**
+ * Method to morgage a property
+ * @param p
+ */
 	public void needToMortgage(Player p) {
             Scanner scnr = new Scanner(System.in);
             optionList = new ArrayList<>();
@@ -554,7 +554,10 @@ public class Board {
 
 
           }
-
+/**
+ * Method to handle bankruptcy
+ * @param p
+ */
 	public void Bankrupt(Player p) {
             int bankruptmoney = p.getMoney();
             p.deductMoney(p.getMoney());
