@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  */
 public class Board {
-	
+	//test
 	public int numPlayers;
 	//Chance and community chest Queues
 	Queue<Integer> Chance = new LinkedList<Integer>();
