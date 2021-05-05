@@ -76,7 +76,14 @@ public class Board {
 			}
 			if (ans == 2) {
 				System.out.println("Congrats!  Your out of jail.");
-				p.deductMoney(50);
+				int payment = 50;
+				while (p.getMoney() < payment) {
+					needToMortgage(p);
+				}
+				if (p.getMoney() < payment) {
+					Bankrupt(p);
+				}
+				p.deductMoney(payment);
 				System.out.println("Current balance: $" + p.getMoney());
 				p.setJail(false);
 				p.resetJailRoll();
@@ -413,8 +420,10 @@ public class Board {
 					"You currently have the following properties mortgaged.  Would you like to unmortgage any of them for the price shown?");
 			int count = 1;
 			for (Property q : toUnMortgageList) {
-				System.out.println(
-						count + ". " + q.getName() + " has a unmortgage cost of $" + (int) (q.getMorgage() * 1.10));
+				if (q.getOwner() == p) {
+					System.out.println(
+							count + ". " + q.getName() + " has a unmortgage cost of $" + (int) (q.getMorgage() * 1.10));
+				}
 				count++;
 			}
 			System.out.println("Do you want to unmortgage any of these properties? Y/N");
@@ -551,6 +560,7 @@ public class Board {
             Property pr2 = (Property) propList.get(optionList.get(choice - 1));
             p.addMoney((pr2).getMorgage());
             pr2.setMorg(true);
+            toUnMortgageList.add(pr2);
             optionList.remove(choice - 1);
 
 
