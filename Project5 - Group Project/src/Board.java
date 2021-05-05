@@ -1,18 +1,25 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
 
-//Board Test Comment.
-//Test comment to see if push is working
-//Pulls is working, is the push working?
+/**
+ * Contains the bulk of the code.  Checks what each player rolls, and what to do when they move.  Also handles jail time and the Chance/Community chest cards
+ * @author PLANKED20
+ *
+ */
 public class Board {
+	//test
 	public int numPlayers;
-	ArrayList<Integer> Chance = new ArrayList<Integer>();
-	ArrayList<Integer> Community = new ArrayList<Integer>();
+	//Chance and community chest Queues
+	Queue<Integer> Chance = new LinkedList<Integer>();
+	Queue<Integer> Community = new LinkedList<Integer>();
+	//Property and plater arrayLists
 	ArrayList<Space> propList = new ArrayList<Space>();
 	ArrayList<Player> playerList = new ArrayList<Player>();
+	//Morgage arrayLists
 	ArrayList<Integer> optionList = new ArrayList<Integer>();
 	ArrayList<Property> toUnMortgageList = new ArrayList<Property>();
 
@@ -35,18 +42,23 @@ public class Board {
 		int startPoint = p.getCurrentSpace();
 		int die1 = rollDice();
 		int die2 = rollDice();
-		int movement = die1 + die2;
+		int movement =die1 + die2;
 		Boolean doubles = false;
 		Boolean skipJail = false;
 		p.setDouble(false);
-
+//Checking for doubles
+		if(die1!=die2) {
+			doubles=false;
+			p.resetDouble();
+		}
 		if (die1 == die2) {
 			doubles = true;
 			p.setDouble(true);
 			p.incDouble();
 		}
+		//Doubles 3x=jail
 		if (p.getDoubleCount() == 3) {
-			System.out.println("You rolled a " + die1 + " and a " + die2
+			System.out.println(p.getPlayerName()+", you rolled a " + die1 + " and a " + die2
 					+ " which means you rolled doubles three times in a row, so you get a speeding ticket and go straight to jail, no Go or $200");
 			p.setJail(true);
 			p.changeCurrentSpace(0);
@@ -55,7 +67,7 @@ public class Board {
 			skipJail = true;
 
 		}
-
+//Options for getting out of jail
 		if (p.getJail() && skipJail == false) {
 			Scanner stan = new Scanner(System.in);
 			System.out.println(p.getPlayerName() + ":\n");
@@ -73,13 +85,22 @@ public class Board {
 				p.setJail(false);
 				p.subJailFree();
 				p.resetJailRoll();
+			//	System.out.println(p.getJailRoll());
 			}
 			if (ans == 2) {
 				System.out.println("Congrats!  Your out of jail.");
-				p.deductMoney(50);
+				int payment = 50;
+				while (p.getMoney() < payment) {
+					needToMortgage(p);
+				}
+				if (p.getMoney() < payment) {
+					Bankrupt(p);
+				}
+				p.deductMoney(payment);
 				System.out.println("Current balance: $" + p.getMoney());
 				p.setJail(false);
 				p.resetJailRoll();
+			//	System.out.println(p.getJailRoll());
 			}
 			if (ans == 1 && p.getJailRoll() < 3) {
 
@@ -95,8 +116,7 @@ public class Board {
 			}
 
 		}
-//Make sure this is after jail..we dont want people rolling 3 doubles than immediately getting out of jail
-
+//Regular turn
 		if (p.getJail() == false) {
 			System.out.println("Its " + p.getPlayerName() + "'s turn.  They roll a " + die1 + " and a " + die2
 					+ " giving them a total move of " + movement + " and have a balance of $" + p.getMoney());
@@ -105,84 +125,71 @@ public class Board {
 			System.out.println(p.getPlayerName() + " is currently on " + propList.get(p.getCurrentSpace()).getName());
 
 		}
-		if (p.getDouble() && p.getDoubleCount() < 3) {
-			System.out.println("You rolled doubles so you get to move again!");
-		}
+		
 		Space space = propList.get(p.getCurrentSpace());
 
 		// Chance
 		if (space instanceof Chance && p.getJail() == false) {
-			int chanceCard = Chance.get(0);
+			int chanceCard = Chance.poll();
 			if (chanceCard == 1) {
-				Chance.remove(0);
 				System.out.println("Advance to Go, collect $200");
 				p.addMoney(200);
 				System.out.println("Current Balance: $" + p.getMoney());
 				p.changeCurrentSpace(0);
-				// System.out.println("Current balance: $"+ p.getMoney());
-				Chance.add(9, 1);
+				Chance.add(1);
 			}
 			if (chanceCard == 2) {
-				Chance.remove(0);
 				System.out.println("Bank error!  You get $50");
 				p.addMoney(50);
 				System.out.println("Current balance: $" + p.getMoney());
-				Chance.add(9, 2);
+				Chance.add(2);
 			}
 			if (chanceCard == 3) {
-				Chance.remove(0);
 				System.out.println("Poor mans tax!  Pay $15");
 				p.deductMoney(15);
 				System.out.println("Current balance: $" + p.getMoney());
-				Chance.add(9, 3);
+				Chance.add(3);
 			}
 			if (chanceCard == 4) {
-				Chance.remove(0);
 				System.out.println("Your building loan has matured!  You get $150");
 				p.addMoney(150);
 				System.out.println("Current balance: $" + p.getMoney());
-				Chance.add(9, 4);
+				Chance.add(4);
 			}
 			if (chanceCard == 5) {
-				Chance.remove(0);
 				System.out.println("Go to St Charles Place!");
 				p.changeCurrentSpace(11);
-				Chance.add(9, 5);
+				Chance.add(5);
 			}
 			if (chanceCard == 6) {
-				Chance.remove(0);
 				System.out.println("Go to Illinois ave!");
 				p.changeCurrentSpace(24);
-				Chance.add(9, 6);
+				Chance.add(6);
 			}
 			if (chanceCard == 7) {
-				Chance.remove(0);
 
 				System.out.println("Go back three spaces!");
 				p.changeCurrentSpace(p.getCurrentSpace() - 3);
-				Chance.add(9, 7);
+				Chance.add(7);
 			}
 			if (chanceCard == 8) {
-				Chance.remove(0);
 
 				System.out.println("Go to jail! Go directly to jail.  Dont pass go, dont collect $200");
 				p.goJail();
 				p.setJail(true);
-				Chance.add(9, 8);
+				Chance.add(8);
 			}
 			if (chanceCard == 9) {
-				Chance.remove(0);
 
 				System.out.println("You got a get out of jail free card!");
 				p.addJailFree();
-				Chance.add(9, 9);
+				Chance.add(9);
 			}
 			if (chanceCard == 10) {
-				Chance.remove(0);
 
 				System.out.println("Go to reading railroad");
 				p.changeCurrentSpace(5);
-				Chance.add(9, 10);
+				Chance.add(10);
 			}
 			int chance = ((Chance) space).getTransaction();
 			if ((p.getMoney()) >= chance) {
@@ -196,75 +203,71 @@ public class Board {
 				}
 
 			}
-//          if (p.isBankrupt() == false) {
-//            p.deductMoney(((Chance) space).getTransaction());
-//            System.out.println("Current balance: $" + p.getMoney());
-//          }
+
 		}
 		// Commnity chest
 		if (space instanceof ComChest && p.getJail() == false) {
-			int commCard = Community.get(0);
-			Community.remove(0);
+			int commCard = Community.poll();
 			if (commCard == 1) {
 				System.out.println("You got an inheritance!  Collect $100");
 				p.addMoney(100);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 1);
+				Community.add( 1);
 			}
 			if (commCard == 2) {
 				System.out.println("You got 2nd in a beauty contest!  Collect $20");
 				p.addMoney(20);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 2);
+				Community.add(2);
 			}
 			if (commCard == 3) {
 				System.out.println("Receive $25 consultancy fee");
 				p.deductMoney(25);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 3);
+				Community.add( 3);
 			}
 			if (commCard == 4) {
 				System.out.println("School fees pay $50");
 				p.deductMoney(50);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 4);
+				Community.add(4);
 			}
 			if (commCard == 5) {
 				System.out.println("Hospital fees pay $50");
 				p.deductMoney(50);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 5);
+				Community.add(5);
 			}
 			if (commCard == 6) {
 				System.out.println("Your life insurance matured. Collect $100");
 				p.addMoney(100);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 6);
+				Community.add( 6);
 			}
 			if (commCard == 7) {
 				System.out.println("Income tax refund.  Collect $20");
 				p.addMoney(20);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 7);
+				Community.add( 7);
 			}
 			if (commCard == 8) {
 				System.out.println("Christmas bonus collect $100");
 				p.addMoney(100);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 8);
+				Community.add( 8);
 			}
 			if (commCard == 9) {
 				System.out.println("Move to Go! Collect $200");
 				p.changeCurrentSpace(0);
 				p.addMoney(200);
 				System.out.println("Current balance: $" + p.getMoney());
-				Community.add(9, 9);
+				Community.add(9);
 			}
 			if (commCard == 10) {
 				System.out.println("Go to jail.  Do not pass go or collect $200");
 				p.goJail();
 				p.setJail(true);
-				Community.add(9, 10);
+				Community.add(10);
 			}
 
 			int comChest = ((ComChest) space).getTransaction();
@@ -279,10 +282,7 @@ public class Board {
 				}
 
 			}
-//            if (p.isBankrupt() == false) {
-//              p.deductMoney(((ComChest) space).getTransaction());
-//              System.out.println("Current balance: $" + p.getMoney());
-//            }
+
 		}
 		// Go
 		if (startPoint > 0 && p.getCurrentSpace() < startPoint && p.getJail() == false) {
@@ -305,8 +305,7 @@ public class Board {
 			p.setJail(true);
 		}
 
-		// Properties
-		// Properties
+		// Landing on Properties
 		Scanner scn = new Scanner(System.in);
 		if (space instanceof Property && p.getJail() == false) {
 			Property pr = (Property) space;
@@ -343,13 +342,11 @@ public class Board {
 					int rent = pr.getRent();
 					if (pr instanceof Railroad) {
 
-						// Changed something here, the player in parentehses.
 						int n = ((Player) pr.getOwner()).getRailCount();
 						rent = (int) (rent * (Math.pow(2, n - 1)));
 
 					} else if (pr instanceof Utility) {
 
-						// Changed something here, rthe player in parentheses...
 						int n = ((Player) pr.getOwner()).getUtilCount();
 						if (n == 1) {
 							rent = 4 * movement;
@@ -413,8 +410,10 @@ public class Board {
 					"You currently have the following properties mortgaged.  Would you like to unmortgage any of them for the price shown?");
 			int count = 1;
 			for (Property q : toUnMortgageList) {
-				System.out.println(
-						count + ". " + q.getName() + " has a unmortgage cost of $" + (int) (q.getMorgage() * 1.10));
+				if (q.getOwner() == p) {
+					System.out.println(
+							count + ". " + q.getName() + " has a unmortgage cost of $" + (int) (q.getMorgage() * 1.10));
+				}
 				count++;
 			}
 			System.out.println("Do you want to unmortgage any of these properties? Y/N");
@@ -477,7 +476,10 @@ public class Board {
 				System.out.println("Okay, your turn is over.");
 			}
 		}
-
+//Doubles 
+		if (p.getDouble() && p.getDoubleCount() < 3&p.getJail()==false) {
+		System.out.println("You rolled doubles so you get to move again!");
+	}
 		// Switching turns
 		if (playerTurn == numPlayers) {
 			playerTurn = 0;
@@ -489,11 +491,10 @@ public class Board {
 
 	}
 
-	/*
-
-	returns random
-	number between 2 and 12**@return*/
-
+/**
+ * Returns a random number between 1 and 6 to simulate die roll
+ * @return
+ */
 	public int rollDice() {
           Random randy = new Random();
 
@@ -508,7 +509,11 @@ public class Board {
 
           }
         }
-
+/**
+ * Method to call when player lands on property to check if its morgaged or not
+ * @param p
+ * @return
+ */
 	public boolean isitMorgaged(Player p) {
             boolean propToMorgage = false;
             for (int i = 0; i < propList.size(); i++) {
@@ -526,7 +531,10 @@ public class Board {
               return false;
             }
           }
-
+/**
+ * Method to morgage a property
+ * @param p
+ */
 	public void needToMortgage(Player p) {
             Scanner scnr = new Scanner(System.in);
             optionList = new ArrayList<>();
@@ -551,11 +559,15 @@ public class Board {
             Property pr2 = (Property) propList.get(optionList.get(choice - 1));
             p.addMoney((pr2).getMorgage());
             pr2.setMorg(true);
+            toUnMortgageList.add(pr2);
             optionList.remove(choice - 1);
 
 
           }
-
+/**
+ * Method to handle bankruptcy
+ * @param p
+ */
 	public void Bankrupt(Player p) {
             int bankruptmoney = p.getMoney();
             p.deductMoney(p.getMoney());
