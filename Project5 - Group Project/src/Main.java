@@ -102,7 +102,36 @@ public class Main {
 	 * 
 	 * @param b
 	 */
+<<<<<<< HEAD
 	public static void addCards(Board b) {
+=======
+	public static  void AddSpace(Board b) {
+	
+		//My Push
+		//Regular properties
+		Property Mediteranean=new RealProperty("Mediterranean ave",60, 30,2,50,10,30,90,160,250,"Purple");
+		Property Baltic=new RealProperty("Baltic ave", 60,30, 4,50,20,60,180,320,450,"Purple");
+		Property Oriental=new RealProperty("Oriental ave", 100,50, 6,50,30,90,270,400,550,"Light Blue");
+		Property Vermont= new RealProperty("Vermont ave", 100, 50, 6,50,30,90,270,400,550,"Light Blue");
+		Property Conneticut=new RealProperty("Conneticut ave", 120, 60, 8,50,40,100,300,450,600,"Light Blue");
+		Property StCharles=new RealProperty("St Charles Place", 140,70, 10,100,50,150,450,625,750,"Pink");
+		Property States=new RealProperty("States ave", 140, 70, 10,100,50,150,450,625,750,"Pink");
+		Property Virginia=new RealProperty("Virginia ave", 160, 80, 12,100,60,180,500,700,900,"Pink");
+		Property StJames=new RealProperty("St James Place", 180, 90, 14,100,70,200,550,750,950,"Orange");
+		Property Tenessee=new RealProperty("Tenessee ave", 180, 90, 14,100,70,200,550,750,950,"Orange");
+		Property NewYork=new RealProperty("New York ave", 200, 100, 16,100,80,220,600,800,1000,"Orange");
+		Property Kentucky=new RealProperty("Kentucky ave", 220,110,18,150,90,250,700,875,1050,"Red");
+		Property Indianna=new RealProperty("Indianna ave", 220,110,18,150,90,250,700,875,1050,"Red");
+		Property Illinois=new RealProperty("Illinois ave", 240,120,20,150,100,300,750,925,1100,"Red");
+		Property Atlantic=new RealProperty("Atlantic ave", 260, 130, 22,150,110,330,800,975,1150,"Yellow");
+		Property Ventor=new RealProperty("Ventor ave", 260, 130, 22,150,110,330,800,975,1150,"Yellow");
+		Property MarvinGardens=new RealProperty("Marvin Gardens", 280, 140, 24,150,120,360,850,1025,1200,"Yellow");
+		Property Pacific=new RealProperty("Pacific ave", 300, 150, 26,200,130,390,900,1100,1275,"Green");
+		Property NorthCarolina=new RealProperty("North Carolina Ave", 300, 150, 26,200,130,390,900,1100,1275,"Green");
+		Property Pennsylvania=new RealProperty("Pennsylvania ave", 320, 160, 28,200,150,450,1000,1200,1400,"Green");
+		Property Parkplace=new RealProperty("Park Place", 350, 175, 35,200,175,500,1100,1300,1500,"Blue");
+		Property Boadwalk=new RealProperty("Boardwalk", 400,200,50,200,200,600,1400,1700,2000,"Blue");
+>>>>>>> branch 'player' of https://github.com/Robo-Eye/Monopoly
 
 		Random rand = new Random();
 		int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };

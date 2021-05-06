@@ -7,9 +7,10 @@ public class RealProperty extends Property {
 	public int rent3house;
 	public int rent4house;
 	public int rentHotel;
+	public String color;
 
 	//Constructor
-	public RealProperty(String name, int cost, int morgage, int rent, int houseCost, int rent1house, int rent2house, int rent3house, int rent4house, int rentHotel) {
+	public RealProperty(String name, int cost, int morgage, int rent, int houseCost, int rent1house, int rent2house, int rent3house, int rent4house, int rentHotel, String color) {
 	super(name, cost, morgage);
 		this.rent = rent;
 		this.houseCount = 0;
@@ -19,6 +20,7 @@ public class RealProperty extends Property {
 		this.rent3house = rent3house;
 		this.rent4house = rent4house;
 		this.rentHotel = rentHotel;
+		this.color = color;
 	}
 
 	public int getRent1house() {
@@ -50,6 +52,9 @@ public class RealProperty extends Property {
 		return houseCount;
 	}
 
+	public String getColor() {
+		return color;
+	}
 	public void setHouseCount(int houseCount) {
 		this.houseCount = houseCount;
 	}
