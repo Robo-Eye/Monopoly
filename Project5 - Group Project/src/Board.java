@@ -22,6 +22,7 @@ public class Board {
 	//Morgage arrayLists
 	ArrayList<Integer> optionList = new ArrayList<Integer>();
 	ArrayList<Property> toUnMortgageList = new ArrayList<Property>();
+	Queue<Player> inBid = new LinkedList<Player>();
 
 	public final int NUM_SPACES;
 	int playerTurn;
@@ -344,6 +345,67 @@ public class Board {
 						System.out.println("Sale successfull");
 						System.out.println("Balance of " + p.getPlayerName() + " is $" + p.getMoney());
 					} else if (response.equalsIgnoreCase("N")) {
+						// AUCTIONING
+			            for (int i = 0; i <= playerList.size() - 1; i++) {
+			              inBid.add(playerList.get(i));
+			            }
+			//System.out.println(playerList.size());
+			            System.out.println("No sale.  Begin auction");
+			            Boolean sold = false;
+			            int player = 0;
+			            int bid = 0;
+			            int minbid = 0;
+			            while (sold == false) {
+			              System.out.println("Num of players bidding: "+inBid.size() );
+			              minbid = bid;
+			              minbid++;
+
+			              Player currentBidder = inBid.poll();
+
+			              System.out.println(
+			                  currentBidder.getPlayerName() + ": Type Y to bid or type N to stop bidding");
+			              String q = scn.next();
+			              while (!(q.equalsIgnoreCase("Y") || q.equalsIgnoreCase("N"))) {
+			                System.out.println("Invalid input.  Type Y to bid or N to stop bidding.");
+			                q = scn.next();
+			              }
+			              if (q.equalsIgnoreCase("Y")) {
+			                System.out
+			                    .println("Enter the amount of money that you want to bid. Current minimum bid: "
+			                        + minbid);
+			                bid = scn.nextInt();
+			                while (bid < minbid) {
+			                  System.out.println("Invalid bid. Please try again and bid at least " + minbid);
+			                  bid = scn.nextInt();
+
+			                }
+			                inBid.add(currentBidder);
+
+			              } else if(q.equalsIgnoreCase("N")){
+			                System.out.println(currentBidder.getPlayerName() + " exited the auction");
+			                inBid.remove(currentBidder);
+			              }
+
+
+			              if (inBid.size() == 1) {
+			Player winner=inBid.poll();
+			                System.out.println(winner.getPlayerName() + " won "
+			                    + propList.get(p.getCurrentSpace()).getName() + " for $" + bid);
+			                System.out.println("Current balance: $" + winner.getMoney());
+			                pr.changeOwner(winner);
+			                winner.deductMoney(bid);
+			                sold = true;
+			              } 
+			              //Add him back in
+			              
+
+			              if (player == inBid.size()-1) {
+			                player = 0;
+			              } else {
+			                player++;
+
+			              }
+			            }
 						System.out.println("No sale");
 					}
 				}
