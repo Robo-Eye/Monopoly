@@ -25,6 +25,7 @@ public class Board {
 
 	public final int NUM_SPACES;
 	int playerTurn;
+	boolean valid = false;
 
 	public Board() {
 		NUM_SPACES = 40;
@@ -80,6 +81,20 @@ public class Board {
 				System.out.println("Type 3 to use your get out of jail free card");
 			}
 			int ans = stan.nextInt();
+			while (!valid) {
+				try {
+					if (ans == 1 || ans == 2 || ans == 3) {
+						valid = true;
+					}
+					else {
+						throw new Exception("Answer must be an integer between 1 and 3.  Please try again.");
+					}
+				} catch (Exception e){
+					System.out.println("Answer must be an integer between 1 and 3.  Please try again.");
+					ans = stan.nextInt();
+				}
+			}
+
 			if (ans == 3) {
 				System.out.println("Congrats! You are out of jail.");
 				p.setJail(false);
