@@ -59,5 +59,8 @@ public class RealProperty extends Property {
 		this.houseCount = houseCount;
 	}
 
+	public int getHouseCost() {
+		return houseCost;
+	}
 
 }

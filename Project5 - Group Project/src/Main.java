@@ -206,22 +206,22 @@ public class Main {
 		b.propList.add(StJames);
 		b.propList.add(comChest2);
 		b.propList.add(Tenessee);
-		b.propList.add(NewYork);
+		b.propList.add(NewYork); //19
 		b.propList.add(FreeParking);
 		b.propList.add(Kentucky);
 		b.propList.add(chance2);
 		b.propList.add(Indianna);
-		b.propList.add(Illinois);
+		b.propList.add(Illinois);//24
 		b.propList.add(Bo);
 		b.propList.add(Atlantic);
 		b.propList.add(Ventor);
 		b.propList.add(Waterworks);
 		b.propList.add(MarvinGardens);
 		b.propList.add(goToJail);
-		b.propList.add(Pacific);
+		b.propList.add(Pacific);//31
 		b.propList.add(NorthCarolina);
 		b.propList.add(comChest3);
-		b.propList.add(Pennsylvania);
+		b.propList.add(Pennsylvania);//34
 		b.propList.add(Shortline);
 		b.propList.add(chance3);
 		b.propList.add(Parkplace);

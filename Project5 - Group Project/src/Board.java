@@ -327,6 +327,427 @@ public class Board {
 			Property pr = (Property) space;
 			if (pr.getOwner() == p && skipJail == false && p.getJail() == false) {
 				System.out.println("You already own this property.  No rent today!");
+	            int numPur= 0;
+	            int numBlu = 0;
+	            int numLBl = 0;
+	            int numPin = 0;
+	            int numOra = 0;
+	            int numRed = 0;
+	            int numYel = 0;
+	            int numGre = 0;
+				for (int i = 0; i < propList.size(); i++) {           
+					if (propList.get(i) instanceof RealProperty) {        
+						RealProperty prop = (RealProperty) propList.get(i);    
+						if (prop.getOwner() == p && prop.getIsMorg() == false) {
+							if(prop.getColor().equals("Purple")) {
+								numPur++;
+							}else if(prop.getColor().equals("Blue")) {
+								numBlu++;
+							}else if(prop.getColor().equals("Light Blue")) {
+								numLBl++;
+							}else if(prop.getColor().equals("Pink")) {
+								numPin++;
+							}else if(prop.getColor().equals("Orange")) {
+								numOra++;
+							}else if(prop.getColor().equals("Red")) {
+								numRed++;
+							}else if(prop.getColor().equals("Yellow")) {
+								numYel++;
+							}else if(prop.getColor().equals("Green")) {
+								numGre++;
+							}
+		                  }
+		                }
+					}
+	           
+				boolean Pur = false;
+				boolean Blu = false;
+				boolean LBl = false;
+				boolean Pin = false;
+				boolean Ora = false;
+				boolean Red = false;
+	            boolean Yel = false;
+	            boolean Gre = false;
+	            
+	            
+				if(numPur == 2) {
+					Pur = true;	
+				}else if(numBlu == 2) {
+					Blu = true;
+				}else if(numLBl == 3) {
+					LBl = true;
+				}else if(numPin == 3) {
+					Pin = true;
+				}else if(numOra == 3) {
+					Ora = true;
+				}else if(numRed == 3) {
+					Red = true;
+				}else if(numYel == 3) {
+					Yel = true;
+				}else if(numGre == 3) {
+					Gre = true;
+				}
+				
+				if(Pur || Blu || LBl || Pin || Ora || Red || Yel || Gre) {
+					System.out.println("You have enough of the same kind of properties to build houses.");
+					if(Pur) { 
+						int cost = 0;
+						for (int i = 0; i < propList.size(); i++) {           
+							if (propList.get(i) instanceof RealProperty) {        
+								RealProperty prop = (RealProperty) propList.get(i);  
+								if (prop.getOwner() == p ) {
+									if(prop.getColor().equals("Purple")) {
+										System.out.println("Property: " + prop.getName());
+										cost = prop.getCost();
+									}
+								}
+							}
+						}
+						if(p.getMoney() > cost) {
+							System.out.println("Do you want to build any houses on the following property? (Y/N)");
+							String response = scn.next();
+							if (response.equalsIgnoreCase("Y")) {
+								boolean yes = true;
+								while(yes) {
+									Scanner sc = new Scanner(System.in);
+									System.out.println("Do you want a house on 1 Baltic or 2 Mediteranean?(1 or 2) ");
+									if(sc.nextInt() == 1) {  
+										RealProperty prop = (RealProperty) propList.get(1);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 2) {
+										RealProperty prop = (RealProperty) propList.get(3);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}
+									System.out.println("Do you want to buy another house on this property group?(Y/N)");
+									response = sc.next();
+									if (response.equalsIgnoreCase("Y")) {
+										
+									}else if (response.equalsIgnoreCase("N")) {
+										yes = false;
+									}
+								}
+								
+							}else if(response.equalsIgnoreCase("N")) {}
+						}
+			
+					}else if(Blu) {
+						int cost = 0;
+						for (int i = 0; i < propList.size(); i++) {           
+							if (propList.get(i) instanceof RealProperty) {        
+								RealProperty prop = (RealProperty) propList.get(i);  
+								if (prop.getOwner() == p ) {
+									if(prop.getColor().equals("Blue")) {
+										System.out.println("Property: " + prop.getName());
+										cost = prop.getCost();
+									}
+								}
+							}
+						}
+						if(p.getMoney() > cost) {
+							System.out.println("Do you want to build any houses on the following property? (Y/N)");
+							String response = scn.next();
+							if (response.equalsIgnoreCase("Y")) {
+								boolean yes = true;
+								while(yes) {
+									Scanner sc = new Scanner(System.in);
+									System.out.println("Do you want a house on 1 Parkplace or 2 Boardwalk?(1 or 2) ");
+									if(sc.nextInt() == 1) {  
+										RealProperty prop = (RealProperty) propList.get(37);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 2) {
+										RealProperty prop = (RealProperty) propList.get(39);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}
+									System.out.println("Do you want to buy another house on this property group?(Y/N)");
+									response = sc.next();
+									if (response.equalsIgnoreCase("Y")) {
+										
+									}else if (response.equalsIgnoreCase("N")) {
+										yes = false;
+									}
+								}
+								
+							}else if(response.equalsIgnoreCase("N")) {}
+						}
+					}else if(LBl) {
+						int cost = 0;
+						for (int i = 0; i < propList.size(); i++) {           
+							if (propList.get(i) instanceof RealProperty) {        
+								RealProperty prop = (RealProperty) propList.get(i);  
+								if (prop.getOwner() == p ) {
+									if(prop.getColor().equals("Light Blue")) {
+										System.out.println("Property: " + prop.getName());
+										cost = prop.getCost();
+									}
+								}
+							}
+						}
+						if(p.getMoney() > cost) {
+							System.out.println("Do you want to build any houses on the following property? (Y/N)");
+							String response = scn.next();
+							if (response.equalsIgnoreCase("Y")) {
+								boolean yes = true;
+								while(yes) {
+									Scanner sc = new Scanner(System.in);
+									System.out.println("Do you want a house on 1 Oriental or 2 Vermont or 3 Conneticut?(1 or 2 or 3) ");
+									if(sc.nextInt() == 1) {  
+										RealProperty prop = (RealProperty) propList.get(6);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 2) {
+										RealProperty prop = (RealProperty) propList.get(8);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 3) {
+										RealProperty prop = (RealProperty) propList.get(9);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}
+									System.out.println("Do you want to buy another house on this property group?(Y/N)");
+									response = sc.next();
+									if (response.equalsIgnoreCase("Y")) {
+										
+									}else if (response.equalsIgnoreCase("N")) {
+										yes = false;
+									}
+								}
+								
+							}else if(response.equalsIgnoreCase("N")) {}
+						}
+					}else if(Pin) {
+						int cost = 0;
+						for (int i = 0; i < propList.size(); i++) {           
+							if (propList.get(i) instanceof RealProperty) {        
+								RealProperty prop = (RealProperty) propList.get(i);  
+								if (prop.getOwner() == p ) {
+									if(prop.getColor().equals("Pink")) {
+										System.out.println("Property: " + prop.getName());
+										cost = prop.getCost();
+									}
+								}
+							}
+						}
+						if(p.getMoney() > cost) {
+							System.out.println("Do you want to build any houses on the following property? (Y/N)");
+							String response = scn.next();
+							if (response.equalsIgnoreCase("Y")) {
+								boolean yes = true;
+								while(yes) {
+									Scanner sc = new Scanner(System.in);
+									System.out.println("Do you want a house on 1 StCharles or 2 States or 3 Virginia?(1 or 2 or 3) ");
+									if(sc.nextInt() == 1) {  
+										RealProperty prop = (RealProperty) propList.get(11);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 2) {
+										RealProperty prop = (RealProperty) propList.get(13);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 3) {
+										RealProperty prop = (RealProperty) propList.get(14);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}
+									System.out.println("Do you want to buy another house on this property group?(Y/N)");
+									response = sc.next();
+									if (response.equalsIgnoreCase("Y")) {
+										
+									}else if (response.equalsIgnoreCase("N")) {
+										yes = false;
+									}
+								}
+								
+							}else if(response.equalsIgnoreCase("N")) {}
+						}
+					}else if(Ora) {
+						int cost = 0;
+						for (int i = 0; i < propList.size(); i++) {           
+							if (propList.get(i) instanceof RealProperty) {        
+								RealProperty prop = (RealProperty) propList.get(i);  
+								if (prop.getOwner() == p ) {
+									if(prop.getColor().equals("Orange")) {
+										System.out.println("Property: " + prop.getName());
+										cost = prop.getCost();
+									}
+								}
+							}
+						}
+						if(p.getMoney() > cost) {
+							System.out.println("Do you want to build any houses on the following property? (Y/N)");
+							String response = scn.next();
+							if (response.equalsIgnoreCase("Y")) {
+								boolean yes = true;
+								while(yes) {
+									Scanner sc = new Scanner(System.in);
+									System.out.println("Do you want a house on 1 StJames or 2 Tenessee or 3 New York?(1 or 2 or 3) ");
+									if(sc.nextInt() == 1) {  
+										RealProperty prop = (RealProperty) propList.get(16);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 2) {
+										RealProperty prop = (RealProperty) propList.get(18);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 3) {
+										RealProperty prop = (RealProperty) propList.get(19);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}
+									System.out.println("Do you want to buy another house on this property group?(Y/N)");
+									response = sc.next();
+									if (response.equalsIgnoreCase("Y")) {
+										
+									}else if (response.equalsIgnoreCase("N")) {
+										yes = false;
+									}
+								}
+								
+							}else if(response.equalsIgnoreCase("N")) {}
+						}
+					}else if(Red) {
+						int cost = 0;
+						for (int i = 0; i < propList.size(); i++) {           
+							if (propList.get(i) instanceof RealProperty) {        
+								RealProperty prop = (RealProperty) propList.get(i);  
+								if (prop.getOwner() == p ) {
+									if(prop.getColor().equals("Red")) {
+										System.out.println("Property: " + prop.getName());
+										cost = prop.getCost();
+									}
+								}
+							}
+						}
+						if(p.getMoney() > cost) {
+							System.out.println("Do you want to build any houses on the following property? (Y/N)");
+							String response = scn.next();
+							if (response.equalsIgnoreCase("Y")) {
+								boolean yes = true;
+								while(yes) {
+									Scanner sc = new Scanner(System.in);
+									System.out.println("Do you want a house on 1 Kentucky or 2 Indianna or 3 Illinois?(1 or 2 or 3) ");
+									if(sc.nextInt() == 1) {  
+										RealProperty prop = (RealProperty) propList.get(21);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 2) {
+										RealProperty prop = (RealProperty) propList.get(23);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 3) {
+										RealProperty prop = (RealProperty) propList.get(24);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}
+									System.out.println("Do you want to buy another house on this property group?(Y/N)");
+									response = sc.next();
+									if (response.equalsIgnoreCase("Y")) {
+										
+									}else if (response.equalsIgnoreCase("N")) {
+										yes = false;
+									}
+								}
+								
+							}else if(response.equalsIgnoreCase("N")) {}
+						}
+					}else if(Yel) {
+						int cost = 0;
+						for (int i = 0; i < propList.size(); i++) {           
+							if (propList.get(i) instanceof RealProperty) {        
+								RealProperty prop = (RealProperty) propList.get(i);  
+								if (prop.getOwner() == p ) {
+									if(prop.getColor().equals("Yellow")) {
+										System.out.println("Property: " + prop.getName());
+										cost = prop.getCost();
+									}
+								}
+							}
+						}
+						if(p.getMoney() > cost) {
+							System.out.println("Do you want to build any houses on the following property? (Y/N)");
+							String response = scn.next();
+							if (response.equalsIgnoreCase("Y")) {
+								boolean yes = true;
+								while(yes) {
+									Scanner sc = new Scanner(System.in);
+									System.out.println("Do you want a house on 1 Alantic or 2 Ventor or 3 MarvinGardens?(1 or 2 or 3) ");
+									if(sc.nextInt() == 1) {  
+										RealProperty prop = (RealProperty) propList.get(26);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 2) {
+										RealProperty prop = (RealProperty) propList.get(27);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 3) {
+										RealProperty prop = (RealProperty) propList.get(29);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}
+									System.out.println("Do you want to buy another house on this property group?(Y/N)");
+									response = sc.next();
+									if (response.equalsIgnoreCase("Y")) {
+										
+									}else if (response.equalsIgnoreCase("N")) {
+										yes = false;
+									}
+								}
+								
+							}else if(response.equalsIgnoreCase("N")) {}
+						}
+					}else if(Gre) {
+						int cost = 0;
+						for (int i = 0; i < propList.size(); i++) {           
+							if (propList.get(i) instanceof RealProperty) {        
+								RealProperty prop = (RealProperty) propList.get(i);  
+								if (prop.getOwner() == p ) {
+									if(prop.getColor().equals("Green")) {
+										System.out.println("Property: " + prop.getName());
+										cost = prop.getCost();
+									}
+								}
+							}
+						}
+						if(p.getMoney() > cost) {
+							System.out.println("Do you want to build any houses on the following property? (Y/N)");
+							String response = scn.next();
+							if (response.equalsIgnoreCase("Y")) {
+								boolean yes = true;
+								while(yes) {
+									Scanner sc = new Scanner(System.in);
+									System.out.println("Do you want a house on 1 Pacific or 2 NorthCarolina or 3 Pennsylvania?(1 or 2 or 3) ");
+									if(sc.nextInt() == 1) {  
+										RealProperty prop = (RealProperty) propList.get(31);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 2) {
+										RealProperty prop = (RealProperty) propList.get(32);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}else if(sc.nextInt() == 3) {
+										RealProperty prop = (RealProperty) propList.get(34);
+										prop.setHouseCount(prop.getHouseCount() + 1);
+										p.deductMoney(cost);
+									}
+									System.out.println("Do you want to buy another house on this property group?(Y/N)");
+									response = sc.next();
+									if (response.equalsIgnoreCase("Y")) {
+										
+									}else if (response.equalsIgnoreCase("N")) {
+										yes = false;
+									}
+								}
+								
+							}else if(response.equalsIgnoreCase("N")) {}
+						}
+					}
+				}
+				
+				
+				
 			} else if (pr.getIsMorg()) {
 				System.out.println("This property is mortgaged.  You pay nothing!");
 			}
