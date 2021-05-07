@@ -24,7 +24,10 @@ public class Main {
 		// Gameloop
 		while (b.playerList.size() > 1) {
 			b.move(b.playerList.get(0));
-			if (b.playerList.get(0).getDouble() && b.playerList.get(0).getJail() == false) {
+			// boolean rolledDD = b.playerList.get(0).getDouble();
+			// boolean inJail
+			// if(rolledDD && !inJail)
+			if (b.playerList.get(0).getDouble() && !b.playerList.get(0).getJail()) {
 				b.move(b.playerList.get(0));
 			}
 			if (b.playerList.get(0).getDouble() && b.playerList.get(0).getJail() == false) {
